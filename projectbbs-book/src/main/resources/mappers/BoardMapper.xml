@@ -5,24 +5,26 @@
     
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
+
 <insert id="create">
 insert into tbl_board (title, content) values (#{title},#{content})
 </insert>
 
 <select id="read" resultType="org.zerock.domain.BoardVO">
-select bno, content, regdate, updatedate
+select 
+bno, title, content, regdate, updatedate, viewcnt
 from
 tbl_board
-where bno = #{bno}
+where bno =#{bno}
 </select>
 
 <update id="update">
-update tbl_board set title = #{title}, content = #{content}
-where bno = #{bno}
+update tbl_board set title =#{title}, content =#{content}
+where bno =#{bno}
 </update>
 
 <delete id="delete">
-delete from tbl_board where bno = #{bno}
+delete from tbl_board where bno =#{bno}
 </delete>
 
 <select id="listAll" resultType="org.zerock.domain.BoardVO">
@@ -31,8 +33,8 @@ select
 bno, title, content, regdate, viewcnt
 from
 tbl_board
-where bno>0
-order by desc, regdate desc
+where bno > 0
+order by bno desc, regdate desc
 ]]>
 
 </select>
