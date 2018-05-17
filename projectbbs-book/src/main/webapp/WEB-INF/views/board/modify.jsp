@@ -4,15 +4,7 @@
 
 <%@ include file="../includes/header.jsp"%>
 
-<!-- Nav -->
-<nav id="nav">
-	<ul>
-		<li><a href="#intro" class="active">Introduction</a></li>
-		<li><a href="#first">First Section</a></li>
-		<li><a href="#second">Second Section</a></li>
-		<li><a href="#cta">Get Started</a></li>
-	</ul>
-</nav>
+
 
 <!-- Main -->
 <div id="main">
@@ -24,12 +16,9 @@
 
 			<!-- Form -->
 
-
-
-
 			<section>
-				<h2>YOUR</h2>
-				<h2>MESSAGE</h2>
+				<h2>MODIFY</h2>
+				<h2>YOUR MESSAGE</h2>
 				<h2></h2>
 
 
@@ -61,29 +50,53 @@
 					</form>
 			</section>
 
-			<%@ include file="../includes/footer.jsp"%>
-
-
 			<script>
-				$(document).ready(function() {
+			$(document).ready(function() {
 
-					var formObj = $("from[role='form']");
-					console.log(formObj);
+				var formObj = $("form[role='form']");
+				console.log(formObj);
 
-					$(".modify").on("click", function() {
+				$("input[type='submit']").on("click", function(e) {
+					
+					e.preventDefault();
+
+					 
+				});
+
+					$(".modify").on("click", function(e) {
+						
+						e.preventDefault(); 
+						
+						
 						formObj.attr("action", "/board/modify");
-						formObj.attr("method", "get");
 						formObj.submit();
+						formObj.attr("method", "get");
+						//formObj.submit();
+						
 					})
 
-					$(".remove").on("click", function() {
+					
+					$(".list").on("click", function(e) {
+						
+						e.preventDefault(); 
+						
+						self.location = "/board/listAll";
+						//formObj.submit();
+					})
+					
+					$(".remove").on("click", function(e) {
+						
+						e.preventDefault(); 
 						formObj.attr("action", "/board/remove");
 						formObj.submit();
-					})
-					$(".list").on("click", function() {
-						self.location = "/board/listAll";
-						formObj.submit();
+						formObj.attr("method", "remove");
 					})
 
 				})
 			</script>
+			
+			
+			<%@ include file="../includes/footer.jsp"%>
+			
+
+			

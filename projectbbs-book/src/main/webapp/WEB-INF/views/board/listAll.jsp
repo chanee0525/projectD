@@ -5,15 +5,7 @@
 <%@ page session="false"%>
 <%@ include file="../includes/header.jsp"%>
 
-<!-- Nav -->
-<nav id="nav">
-	<ul>
-		<li><a href="#intro" class="active">Introduction</a></li>
-		<li><a href="#first">First Section</a></li>
-		<li><a href="#second">Second Section</a></li>
-		<li><a href="#cta">Get Started</a></li>
-	</ul>
-</nav>
+
 
 <!-- Main -->
 <div id="main">
@@ -41,7 +33,7 @@
 							<%-- <tr data-bno="${boardVO.bno}"> --%>
 							<tr>
 								<td>${boardVO.bno}</td>
-								<td><a href='/board/read/?bno=${boardVO.bno}'>${boardVO.title}</a></td>
+								<td><a href='/board/read?bno=${boardVO.bno}'>${boardVO.title}</a></td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 								value="${boardVO.regdate}" /></td>
 								<td><span class="badge bg-red">${boardVO.viewcnt}</span></td>
@@ -57,7 +49,7 @@
 				var result = '${msg}';
 
 				if (result == "success") {
-					alert("저장이 완료되었습니다")
+					alert("저장이 완료되었습니다");
 				}
 			</script>
 

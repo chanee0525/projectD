@@ -4,15 +4,7 @@
 
 <%@ include file="../includes/header.jsp"%>
 
-<!-- Nav -->
-<nav id="nav">
-	<ul>
-		<li><a href="#intro" class="active">Introduction</a></li>
-		<li><a href="#first">First Section</a></li>
-		<li><a href="#second">Second Section</a></li>
-		<li><a href="#cta">Get Started</a></li>
-	</ul>
-</nav>
+
 
 <!-- Main -->
 <div id="main">
@@ -40,9 +32,8 @@
 						</div>
 						<div class="12u$">
 							<ul class="actions">
-								<li><a class="button" href="/board/list">BACK</a></li>
 								<li><input type="submit" value="SEND" class="send" /></li>
-								
+								<li><a class="button" href="/board/listAll">BACK</a></li>
 							</ul>
 						</div>
 					</div>
@@ -54,5 +45,7 @@
 		</div>
 	</section>
 
+
+<%@ include file="../includes/footer.jsp"%>
 
 

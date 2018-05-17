@@ -1,5 +1,7 @@
 package org.zerock.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import javax.inject.Inject;
 
 import org.junit.runner.Request;
@@ -57,25 +59,33 @@ public class BoardController {
 
 		model.addAttribute(service.read(bno));
 	}
-	
-	@GetMapping("/modify")
-	public void modify(int bno, Model model) throws Exception{
+
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public void modify(int bno, Model model) throws Exception {
 		log.info("modify call...................");
 		model.addAttribute(service.read(bno));
 	}
-	
-	@PostMapping("/modify")
-	public String modifypost(BoardVO board, RedirectAttributes rttr) throws Exception{
-		
+
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modifyPOST(BoardVO board, RedirectAttributes rttr) throws Exception {
 		log.info("modify post call...................");
-		
+
 		service.modify(board);
-		rttr.addFlashAttribute("msg","success");
-		
+		rttr.addAttribute("msg", "SUCCESS");
+
 		return "redirect:/board/listAll";
-		
 	}
 	
-	
+	@RequestMapping(value = "/remove", method = RequestMethod.POST)
+	public String remove(@RequestParam("bno")int bno, RedirectAttributes rttr) throws Exception {
+		
+		log.info("remove call...................");
+
+		service.remove(bno);
+		rttr.addFlashAttribute("msg", "SUCCESS");
+
+		return "redirect:/board/listAll";
+	}
+
 
 }

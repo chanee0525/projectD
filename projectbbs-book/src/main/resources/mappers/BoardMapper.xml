@@ -36,6 +36,19 @@ tbl_board
 where bno > 0
 order by bno desc, regdate desc
 ]]>
-
 </select>
+
+<select id="listPage" resultType="org.zerock.domain.BoardVO">
+<![CDATA[
+
+select
+  bno, title, content, regdate, viewcnt 
+from 
+  tbl_board where bno > 0 
+  order by bno desc, regdate desc
+   limit #{page}, 10;
+
+]]>
+</select>
+
 </mapper>

@@ -2742,7 +2742,7 @@
 	}
 
 	table {
-		margin: 0 0 2em 0 0;
+		margin: 0 0 2em 0;
 		width: 100%;
 	}
 
@@ -3090,8 +3090,7 @@
 		border-color: rgba(255, 255, 255, 0.35);
 	}
 
-
-/*header*/
+/* Header */
 
 	#header {
 		padding: 5em 5em 1em 5em ;
@@ -3227,10 +3226,9 @@
 			-moz-transform: scale(0.8) rotate(-30deg);
 			-webkit-transform: scale(0.8) rotate(-30deg);
 			-ms-transform: scale(0.8) rotate(-30deg);
-			-transform: scale(0.8) rotate(-30deg); 
+			transform: scale(0.8) rotate(-30deg);
 		}
- 
- 
+
 /* Nav */
 
 	#nav {
