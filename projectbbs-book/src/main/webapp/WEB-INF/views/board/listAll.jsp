@@ -7,8 +7,6 @@
 
 
 
-<!-- Main -->
-<div id="main">
 
 	<!-- Introduction -->
 	<section id="intro" class="main">
@@ -47,7 +45,6 @@
 			</div>
 			<script>
 				var result = '${msg}';
-
 				if (result == "success") {
 					alert("저장이 완료되었습니다");
 				}

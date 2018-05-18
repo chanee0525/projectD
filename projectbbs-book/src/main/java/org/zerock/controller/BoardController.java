@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
+import org.zerock.domain.PageMaker;
 import org.zerock.service.BoardService;
 
 import lombok.extern.log4j.Log4j;
@@ -43,15 +45,15 @@ public class BoardController {
 		rttr.addFlashAttribute("msg", "success");
 		// model.addAttribute("result", "success");
 
-		return "redirect:/board/listAll";
+		return "redirect:/board/listCri";
 
 	}
 
-	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
-	public void listAll(Model model) throws Exception {
+	@RequestMapping(value = "/listCri", method = RequestMethod.GET)
+	public void listAll(Criteria cri, Model model) throws Exception {
 
-		log.info("load all list...................");
-		model.addAttribute("list", service.listAll());
+		log.info("show list page with Criteria...................");
+		model.addAttribute("list", service.listCriteria(cri));
 	}
 
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
@@ -61,7 +63,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public void modify(int bno, Model model) throws Exception {
+	public void modifyGET(int bno, Model model) throws Exception {
 		log.info("modify call...................");
 		model.addAttribute(service.read(bno));
 	}
@@ -71,9 +73,9 @@ public class BoardController {
 		log.info("modify post call...................");
 
 		service.modify(board);
-		rttr.addAttribute("msg", "SUCCESS");
+		rttr.addFlashAttribute("msg", "SUCCESS");
 
-		return "redirect:/board/listAll";
+		return "redirect:/board/listCri";
 	}
 	
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
@@ -84,8 +86,31 @@ public class BoardController {
 		service.remove(bno);
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
-		return "redirect:/board/listAll";
+		return "redirect:/board/listCri";
+
+	
 	}
+	
+	public void listPage(Criteria cri, Model model) throws Exception {
+		
+		log.info(cri.toString());
+		
+		model.addAttribute("list", service.listCriteria(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(254);
+		
+		model.addAttribute("pageMaker", pageMaker);
+		
+		
+	}
+	
+	
+	
+	
+
+	
+
 
 
 }

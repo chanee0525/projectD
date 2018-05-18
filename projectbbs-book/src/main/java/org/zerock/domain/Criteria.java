@@ -2,6 +2,7 @@ package org.zerock.domain;
 
 import lombok.Data;
 
+@Data
 public class Criteria {
 
 	private int page;
@@ -38,9 +39,13 @@ public class Criteria {
 
 	}
 
-
 	public int getPage() {
 		return page;
+
+	}
+
+	public int getPageStart() {
+		return (this.page - 1) * perPageNum;
 
 	}
 
@@ -48,11 +53,10 @@ public class Criteria {
 		return this.perPageNum;
 
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + "]";
 	}
-
 
 }

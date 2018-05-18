@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 import org.zerock.persistence.BoardDAO;
 
 import com.mysql.jdbc.interceptors.SessionAssociationInterceptor;
@@ -20,66 +21,77 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 
 public class BoardDAOTest {
-	
+
 	@Inject
 	private BoardDAO dao;
-	
-	
+
 	@Test
 	public void testCreate() throws Exception {
-		
+
 		BoardVO vo = new BoardVO();
 		vo.setTitle("테스트 제목3");
 		vo.setContent("테스트 내용3");
-		
+
 		dao.create(vo);
-		
+
 	}
-	
+
 	@Test
-	public void testread() throws Exception{
-		
+	public void testread() throws Exception {
+
 		log.info(dao.read(2).toString());
 	}
-	
+
 	@Test
-	public void testUpdate() throws Exception{
+	public void testUpdate() throws Exception {
 		BoardVO vo = new BoardVO();
 		vo.setBno(20);
 		vo.setTitle("수정 제목 테스트");
 		vo.setContent("수정 본문 테스트");
-		dao.update(vo);	
+		dao.update(vo);
 	}
-	
+
 	@Test
-	public void testDelete() throws Exception{
-		
+	public void testDelete() throws Exception {
+
 		dao.delete(1);
-		
+
 	}
-	
+
 	@Test
-	public void testList() throws Exception{
+	public void testList() throws Exception {
 		dao.listAll();
 	}
-	
+
 	@Test
-	public void testListPage() throws Exception{
-		
+	public void testListPage() throws Exception {
+
 		int page = 3;
-		
-		/*List<BoardVO> list = dao.listPage(page);
-				
+
+		List<BoardVO> list = dao.listPage(3);
+
 		for (BoardVO boardVO : list) {
 			log.info(boardVO.getBno() + ":" + boardVO.getTitle());
-		}*/
-		dao.listPage(1).forEach(c -> log.info(c));
+		}
+
 	}
+
+	@Test
+	public void testListCriteria() throws Exception {
+
+		Criteria cri = new Criteria();
+
+		cri.setPage(2);
+		cri.setPerPageNum(20);
+
+		List<BoardVO> list = dao.listCriteria(cri);
+
+		for (BoardVO boardVO : list) {
+
+			log.info(boardVO.getBno() + ":" + boardVO.getTitle());
+
+		}
+
+	}
+
 }
-		
-		
-	
-	
-	
-
-

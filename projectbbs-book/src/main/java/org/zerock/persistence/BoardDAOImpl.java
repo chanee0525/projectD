@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -32,6 +33,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public void update(BoardVO board) throws Exception {
+		System.out.println(board);
 		session.update(namespace+".update", board);
 
 	}
@@ -58,6 +60,15 @@ public class BoardDAOImpl implements BoardDAO {
 		return session.selectList(namespace + ".listPage",page);
 		
 	}
+
+	@Override
+	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
+		
+		return session.selectList(namespace + ".listCriteria", cri);
+	}
+	
+	
+
 	
 	
 
