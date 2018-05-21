@@ -38,46 +38,66 @@
 
 			<tfoot>
 
+
 			</tfoot>
 		</table>
 
- 		
-			 	<div class="pagination">
-				<a href="#" class="previous">Prev</a>
-				<a href="#" class="page active">1</a> <a href="#" class="page">2</a>
-				<a href="#" class="page">3</a> <span class="extra">&hellip;</span> <a
-					href="#" class="page">8</a> <a href="#" class="page">9</a> <a
-					href="#" class="page">10</a> <a href="#" class="next">Next</a>
-			</div> 
 
-<%-- <%-- 		<div class="pagination">
-				<c:if test="${pageMaker.prev}">
-					<a href="listPage?page=${pageMaker.startPage-1}" class="previous">Prev</a>
-				</c:if>
 
-				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}"
-					var="idx">
-					<a href="listPage?page=${idx}"
-						class="page <c:if test="${pageMaker.cri.page == idx}">active</c:if>">${idx}</a>
-				</c:forEach>
-				<c:if test="${pageMaker.next}">
-					<a href="listPage?page=${pageMaker.endPage +1}" class="next">Next</a>
-				</c:if>
-			</div>  --%> 
+
+
 	</div>
+
+
+
+	<%-- <span>PAGE MAKER...................${pageMaker }</span> --%>
+
+ 	<div class="pagination">
+		<c:if test="${pageMaker.prev}">
+			<a href="/board/listPage?page=${pageMaker.startPage-1}"
+				class="previous">Prev</a>
+		</c:if>
+
+		<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}"
+			var="idx">
+			<a href="/board/listPage?page=${idx}"
+				class="page <c:if test="${pageMaker.cri.page == idx}">active</c:if>">${idx}</a>
+		</c:forEach>
+		<c:if test="${pageMaker.next}">
+			<a href="/board/listPage?page=${pageMaker.endPage +1}" class="next">Next</a>
+		</c:if>
+	</div>
+ 
+
+<%-- 
+	<ul class="pagination">
+		<!--<a href="" class="previous">Prev</a>-->
+		<li><a href="1" class="page active">1</a> <a href="#" class="page">2</a></li> 
+		<li><a href="3" class="page">3</a> <span class="extra">&hellip;</span></li> 
+			<li><a href="8" class="page">8</a> <a href="#" class="page">9</a></li> 
+			<li><a href="10" class="page">10</a> <a href="#" class="next">Next</a></li>
+	</ul>
 	
+	
+	<form id="pagination">
+	<input type='hidden' name="page" value=${pageMaker.cri.perPageNum }>
+	<input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum }>
+	
+	$(".pagigation li a").on("click", function(event){
+	
+	event.preventDefault();
+	
+	var targetPgate = $(this).attr("href");
+	
+	var jobForm = ${"#jobForm" };
+	
+	jobForm.find("[name='page']").val(targetPage);
+	jobForm.attr("action","/board/listPage").attr("method","get");
+	jobForm.submit();
+	
+	</form> --%>
 
 
 
-
-
-
-
-	<script>
-		var result = '${msg}';
-		if (result == "success") {
-			alert("저장이 완료되었습니다");
-		}
-	</script>
 
 	<%@ include file="../includes/footer.jsp"%>

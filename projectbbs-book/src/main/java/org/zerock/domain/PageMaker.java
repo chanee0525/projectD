@@ -1,14 +1,17 @@
 package org.zerock.domain;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+
 @Getter
 @Setter
 @ToString
-
 public class PageMaker {
 	
 	private int totalCount;
@@ -36,10 +39,12 @@ public class PageMaker {
 	
 	}
 	
+	
 	private void calcData() {
 		
 		endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
 		startPage = (endPage - displayPageNum) + 1 ;
+		
 		int tempEndPage = (int)(Math.ceil(totalCount / (double) cri.getPerPageNum()));
 		
 		if(endPage > tempEndPage) {
@@ -49,6 +54,16 @@ public class PageMaker {
 		prev = startPage == 1 ? false : true;
 		
 		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
+	}
+	
+	public String makeQuery(int page) {
+		
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("perPageNum", cri.getPerPageNum())
+				.build();
+		
+		return uriComponents.toUriString();
 	}
 	
 	

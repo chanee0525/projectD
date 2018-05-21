@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.persistence.BoardDAO;
@@ -92,6 +94,31 @@ public class BoardDAOTest {
 
 		}
 
+	}
+
+	@Test
+	public void TestURI() throws Exception {
+
+		UriComponents uriComponents = UriComponentsBuilder.newInstance().path("/board/read").queryParam("bno", 12)
+				.queryParam("perPageNum", 20).build();
+
+		log.info("/board/read?bno=12&perPageNum=20");
+		log.info(uriComponents.toString());
+	}
+
+	@Test
+	public void TestURI2() throws Exception {
+
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.path("/{module}/{page}")
+				.queryParam("bno", 12)
+				.queryParam("perPageNum", 20)
+				.build()
+				.expand("board", "read")
+				.encode();
+
+		log.info("/board/read?bno=12&perPageNum=20");
+		log.info(uriComponents.toString());
 	}
 
 }

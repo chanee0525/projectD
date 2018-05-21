@@ -11,7 +11,12 @@
 
 <form role="form" method="post">
 	<input type='hidden' name='bno' value="${boardVO.bno}">
+<%-- 	<input type='hidden' name='bno' value="${cri.page}">
+	<input type='hidden' name='bno' value="${Cri.perPageNum}"> --%>
+
+	
 	<h2>Form</h2>
+	
 </form>
 
 <div class="row uniform">
@@ -87,7 +92,7 @@
 
 			//alert("AAAAAAAAAAAAAAAAAAAAAAAAAA");
 
-			self.location = "/board/listCri";
+			self.location = "/board/listPage";
 			//formObj.submit();
 
 		});

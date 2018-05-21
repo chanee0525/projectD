@@ -3,11 +3,13 @@ package org.zerock.controller;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import javax.inject.Inject;
+import javax.script.CompiledScript;
 
 import org.junit.runner.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,7 +47,7 @@ public class BoardController {
 		rttr.addFlashAttribute("msg", "success");
 		// model.addAttribute("result", "success");
 
-		return "redirect:/board/listCri";
+		return "redirect:/board/listPage";
 
 	}
 
@@ -53,14 +55,24 @@ public class BoardController {
 	public void listAll(Criteria cri, Model model) throws Exception {
 
 		log.info("show list page with Criteria...................");
+		/*model.addAttribute("list", service.listCriteria(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		
+		pageMaker.setTotalCount(service.listCountCriteria(cri));*/
+		
 		model.addAttribute("list", service.listCriteria(cri));
 	}
-
-	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public void read(@RequestParam("bno") int bno, Model model) throws Exception {
-
+	
+	@RequestMapping(value="/readPage", method = RequestMethod.GET)
+	public void read (@RequestParam("bno") int bno, 
+			@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+		
+		log.info("read.....................");
 		model.addAttribute(service.read(bno));
+		
 	}
+	
 
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void modifyGET(int bno, Model model) throws Exception {
@@ -75,7 +87,7 @@ public class BoardController {
 		service.modify(board);
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
-		return "redirect:/board/listCri";
+		return "redirect:/board/listPage";
 	}
 	
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
@@ -86,24 +98,55 @@ public class BoardController {
 		service.remove(bno);
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
-		return "redirect:/board/listCri";
+		return "redirect:/board/listPage";
 
 	
 	}
-	
-	public void listPage(Criteria cri, Model model) throws Exception {
+	@RequestMapping(value="/listPage", method = RequestMethod.GET)
+	public void listPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 		
 		log.info(cri.toString());
+		log.info("listPage.............");
+	
 		
 		model.addAttribute("list", service.listCriteria(cri));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(254);
+		//pageMaker.setTotalCount(254);
+		
+		pageMaker.setTotalCount(service.listCountCriteria(cri));
 		
 		model.addAttribute("pageMaker", pageMaker);
 		
+	
 		
+	
 	}
+	
+	
+	@RequestMapping(value="/removePage", method=RequestMethod.POST)
+	public String remove(@RequestParam("bno") int bno, Criteria cri, RedirectAttributes rttr) throws Exception {
+		
+		service.remove(bno);
+		
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum",cri.getPerPageNum());
+		rttr.addFlashAttribute("msg","SUCCESS");
+		
+		log.info("remove.............");
+		return "redirect:/board/listPage";
+	}
+	
+	@RequestMapping(value="/modifyPage", method=RequestMethod.GET)
+	public void modifyPagingGET(@RequestParam("bno") int bno, 
+			@ModelAttribute("cri") Criteria cri, Model model) throws Exception{
+	
+		model.addAttribute(service.read(bno));
+		
+		log.info("modify.......................");
+	}
+
+
 	
 	
 	
