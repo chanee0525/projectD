@@ -23,7 +23,7 @@
 											<div class="12u$">
 												<ul class="actions">
 													<li><input type="submit" value="Send Message" class="send" /></li>
-													<li><a class="button" href="/board/listCri">BACK</a></li>
+													<li><a class="button" href="/board/listPage">BACK</a></li>
 												</ul>
 											</div>
 										</div>

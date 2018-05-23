@@ -2,32 +2,35 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
+
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
 
-<insert id="create">
-insert into tbl_board (title, content) values (#{title},#{content})
-</insert>
+	<insert id="create">
+		insert into tbl_board (title, content) values
+		(#{title},#{content})
+	</insert>
 
-<select id="read" resultType="org.zerock.domain.BoardVO">
-select 
-bno, title, content, regdate, updatedate, viewcnt
-from
-tbl_board
-where bno =#{bno}
-</select>
+	<select id="read" resultType="org.zerock.domain.BoardVO">
+		select
+		bno, title, content, regdate,
+		updatedate, viewcnt
+		from
+		tbl_board
+		where bno =#{bno}
+	</select>
 
-<update id="update">
-update tbl_board set title = #{title}, content = #{content}
-where bno = #{bno}
-</update>
+	<update id="update">
+		update tbl_board set title = #{title}, content =
+		#{content}
+		where bno = #{bno}
+	</update>
 
-<delete id="delete">
-delete from tbl_board where bno =#{bno}
-</delete>
+	<delete id="delete">
+		delete from tbl_board where bno =#{bno}
+	</delete>
 
-<select id="listAll" resultType="org.zerock.domain.BoardVO">
+	<select id="listAll" resultType="org.zerock.domain.BoardVO">
 <![CDATA[
 select 
 bno, title, content, regdate, viewcnt
@@ -36,9 +39,9 @@ tbl_board
 where bno > 0
 order by bno desc, regdate desc
 ]]>
-</select>
+	</select>
 
-<select id="listPage" resultType="org.zerock.domain.BoardVO">
+	<select id="listPage" resultType="org.zerock.domain.BoardVO">
 <![CDATA[
 
 select
@@ -49,10 +52,10 @@ from
    limit #{page}, 10;
 
 ]]>
-</select>
+	</select>
 
 
-<select id="listCriteria" resultType="org.zerock.domain.BoardVO">
+	<select id="listCriteria" resultType="org.zerock.domain.BoardVO">
 <![CDATA[
 
 select bno, title, content, regdate, viewcnt
@@ -61,14 +64,82 @@ select bno, title, content, regdate, viewcnt
 limit #{pageStart}, #{perPageNum};
 
 ]]>
-</select>
+	</select>
 
-<select id="countPaging" resultType="int">
+	<select id="countPaging" resultType="int">
 
 <![CDATA[
 select count(bno) from tbl_board where bno > 0
 ]]>
 
-</select>
+	</select>
+
+	<select id="listSearch" resultType="org.zerock.domain.BoardVO">
+
+<![CDATA[
+
+select *
+from tbl_board
+where bno > 0
+
+]]>
+
+<include refid="search"></include>
+<!-- 
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				and title like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'c'.toString()">
+				and content like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				and ( title like CONCAT('%', #{keyword}, '%') OR content
+				like
+				CONCAT('%',#{keyword},'%'))
+			</if>
+		</if> -->
+		
+<![CDATA[
+
+order by bno desc
+limit #{pageStart}, #{perPageNum}
+
+]]>
+
+	</select>
+
+
+	<select id="listSearchCount" resultType="int">
+
+<![CDATA[
+
+select count(bno) from tbl_board where bno > 0
+]]>
+
+<include refid="search"></include>
+
+
+	</select>
+
+
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				and title like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'c'.toString()">
+				and content like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				and ( title like CONCAT('%', #{keyword}, '%') OR content
+				like
+				CONCAT('%',#{keyword},'%'))
+			</if>
+		</if>
+
+	</sql>
+
+
 
 </mapper>
