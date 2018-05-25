@@ -8,46 +8,43 @@
 
 
 
-	<!-- Introduction -->
-	<section id="intro" class="main">
+<!-- Introduction -->
+<section id="intro" class="main">
 
-		<!-- Table -->
-		<section>
-			<h2>HELLO, </h2>
-			<h2>STRANGER</h2>
-			<h2>　</h2>
-			<div class="table-wrapper">
-				<table>
-					<thead>
+	<!-- Table -->
+	<section>
+		<h2>HELLO,</h2>
+		<h2>STRANGER</h2>
+		<h2></h2>
+		<div class="table-wrapper">
+			<table>
+				<thead>
+					<tr>
+						<th>no</th>
+						<th>title</th>
+						<th>regdate</th>
+						<th>viewcnt</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${list}" var="boardVO">
+						<%-- <tr data-bno="${boardVO.bno}"> --%>
 						<tr>
-							<th>no</th>
-							<th>title</th>	
-							<th>regdate</th>
-							<th>viewcnt</th>
+							<td>${boardVO.bno}</td>
+							<td><a href='/board/read?bno=${boardVO.bno}'>${boardVO.title}</a></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+									value="${boardVO.regdate}" /></td>
+							<td><span class="badge bg-red">${boardVO.viewcnt}</span></td>
 						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${list}" var="boardVO">
-							<%-- <tr data-bno="${boardVO.bno}"> --%>
-							<tr>
-								<td>${boardVO.bno}</td>
-								<td><a href='/board/read?bno=${boardVO.bno}'>${boardVO.title}</a></td>
-								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-								value="${boardVO.regdate}" /></td>
-								<td><span class="badge bg-red">${boardVO.viewcnt}</span></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-					<tfoot>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		<script>
+			var result = '${msg}';
+			if (result == "success") {
+				alert("저장이 완료되었습니다");
+			}
+		</script>
 
-					</tfoot>
-				</table>
-			</div>
-			<script>
-				var result = '${msg}';
-				if (result == "success") {
-					alert("저장이 완료되었습니다");
-				}
-			</script>
-
-			<%@ include file="../includes/footer.jsp"%>
+		<%@ include file="../includes/footer.jsp"%>
