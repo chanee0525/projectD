@@ -48,7 +48,7 @@
 		<ul class="links">
 			<li class="active"><a href="/board/listPage	">LETTERS</a></li>
 			<li><a href="/board/register">POSTBOX</a></li>
-			<li><a href="/resources/elements.html">Elements Reference</a></li>
+			<li><a href="/board/gallery">Gallery</a></li>
 		</ul>
 		<ul class="icons">
 			<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
