@@ -154,7 +154,7 @@ public class BoardController {
 		return "redirect:/board/listPage";
 	}
 	
-	@RequestMapping(value = "/gallery", method = RequestMethod.GET)
+	@RequestMapping(value = "/gallery2", method = RequestMethod.GET)
 	public void registerGet() throws Exception {
 
 		log.info("gallery get..........");
