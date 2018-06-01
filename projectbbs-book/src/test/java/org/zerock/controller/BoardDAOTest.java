@@ -32,8 +32,8 @@ public class BoardDAOTest {
 	public void testCreate() throws Exception {
 
 		BoardVO vo = new BoardVO();
-		vo.setTitle("Å×½ºÆ® Á¦¸ñ3");
-		vo.setContent("Å×½ºÆ® ³»¿ë3");
+		vo.setTitle("í…ŒìŠ¤íŠ¸");
+		vo.setContent("í…ŒìŠ¤íŠ¸í…ŒìŠ¤íŠ¸");
 
 		dao.create(vo);
 
@@ -49,8 +49,8 @@ public class BoardDAOTest {
 	public void testUpdate() throws Exception {
 		BoardVO vo = new BoardVO();
 		vo.setBno(20);
-		vo.setTitle("¼öÁ¤ Á¦¸ñ Å×½ºÆ®");
-		vo.setContent("¼öÁ¤ º»¹® Å×½ºÆ®");
+		vo.setTitle("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®");
+		vo.setContent("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®");
 		dao.update(vo);
 	}
 
@@ -127,7 +127,7 @@ public class BoardDAOTest {
 		
 		SearchCriteria cri = new SearchCriteria();
 		cri.setPage(1);
-		cri.setkeyword("±Û");
+		cri.setkeyword("ï¿½ï¿½");
 		cri.setSearchType("t");
 		
 		log.info("*******************************************");
