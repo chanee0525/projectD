@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.ReplyVO;
 import org.zerock.persistence.ReplyDAO;
 
@@ -38,5 +39,17 @@ public class ReplyServiceImpl implements ReplyService {
 		dao.delete(rno);
 
 	}
+
+	@Override
+	public List<ReplyVO> listReply(Integer bno, Criteria cri) throws Exception {
+		return dao.listPage(bno, cri);
+	}
+
+	@Override
+	public int count(Integer bno) throws Exception {
+		return dao.count(bno);
+	}
+	
+	
 
 }

@@ -10,9 +10,31 @@
 		*
 		from
 		tbl_reply
-		where bno = #{bno}
+		where bno =
+		#{bno}
 		order by rno desc
 
+	</select>
+
+	<select id="listPage" resultType="org.zerock.domain.ReplyVO">
+
+		select
+		*
+		from
+		tbl_reply
+		where
+		bno = #{bno}
+		order by desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+
+
+	</select>
+	
+	<select id="count" resultType="int">
+	
+	select count(bno) from tbl_reply where bno = #{bno}
+	
+	
 	</select>
 
 	<insert id="create">
@@ -24,7 +46,8 @@
 
 	<update id="update">
 
-		update tbl_reply set replytext = #{replytext}, updatedate = current_timestamp
+		update tbl_reply set replytext = #{replytext},
+		updatedate = current_timestamp
 		where rno = #{rno}
 
 	</update>
