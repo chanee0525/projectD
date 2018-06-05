@@ -1,5 +1,9 @@
 package org.zerock.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -7,6 +11,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.controller.ReplyDAOTest;
+import org.zerock.domain.Criteria;
+import org.zerock.domain.PageMaker;
 import org.zerock.domain.ReplyVO;
 
 import lombok.extern.log4j.Log4j;
@@ -34,6 +40,18 @@ public class ReplyServiceTests {
 		
 		service.addReply(vo);
 		log.info(vo);
+		
+	}
+	
+	@Test
+	public void pageTest() throws Exception {
+		Criteria cri = new Criteria();
+		cri.setPage(1);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		
+		System.out.println(service.listReplyPage(5071, cri));
 		
 	}
 	

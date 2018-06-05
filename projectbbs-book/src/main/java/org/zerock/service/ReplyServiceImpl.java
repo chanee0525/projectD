@@ -41,7 +41,7 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public List<ReplyVO> listReply(Integer bno, Criteria cri) throws Exception {
+	public List<ReplyVO> listReplyPage(Integer bno, Criteria cri) throws Exception {
 		return dao.listPage(bno, cri);
 	}
 
