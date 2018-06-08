@@ -1,16 +1,12 @@
 package org.zerock.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import javax.inject.Inject;
-import javax.script.CompiledScript;
 
-import org.junit.runner.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -153,7 +149,7 @@ public class BoardController {
 
 		return "redirect:/board/listPage";
 	}
-	
+
 	@RequestMapping(value = "/gallery2", method = RequestMethod.GET)
 	public void registerGet() throws Exception {
 
