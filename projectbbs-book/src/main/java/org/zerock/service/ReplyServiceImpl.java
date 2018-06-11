@@ -23,10 +23,10 @@ public class ReplyServiceImpl implements ReplyService {
 
 	}
 
-	@Override
+/*	@Override
 	public List<ReplyVO> listReply(Integer bno) throws Exception {
 		return dao.list(bno);
-	}
+	}*/
 
 	@Override
 	public void modifyReply(ReplyVO vo) throws Exception {

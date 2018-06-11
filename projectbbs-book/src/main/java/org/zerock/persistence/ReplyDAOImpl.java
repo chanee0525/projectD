@@ -19,21 +19,27 @@ public class ReplyDAOImpl implements ReplyDAO {
 	
 	public static String namespace = "org.zerock.mapper.ReplyMapper";
 
-	@Override
+/*	@Override
 	public List<ReplyVO> list(Integer bno) throws Exception {
 		
 		return session.selectList(namespace+".list", bno);
 	}
-	
+	*/
 	@Override
 	public List<ReplyVO> listPage(Integer bno, Criteria cri) throws Exception{
+		
+		System.out.println("-----------------------------------1");
+		System.out.println("-----------------------------------1");
+		System.out.println("-----------------------------------1");
+		System.out.println("-----------------------------------1");
+		System.out.println("-----------------------------------1");
 		
 		Map<String, Object> paramMap = new HashMap<>();
 		
 		paramMap.put("bno", bno);
 		paramMap.put("cri", cri);
 		
-		return session.selectList(namespace+".listpage", paramMap);
+		return session.selectList(namespace+".listPage", paramMap);
 		
 	}
 	

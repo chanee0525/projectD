@@ -49,7 +49,7 @@ public class ReplyController {
 	}
 
 
-	@RequestMapping(value = "/all/{bno}", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/all/{bno}", method = RequestMethod.GET)
 	public ResponseEntity<List<ReplyVO>> list(@PathVariable("bno") Integer bno) {
 		
 		ResponseEntity<List<ReplyVO>> entity = null;
@@ -63,7 +63,7 @@ public class ReplyController {
 
 		return entity;
 	}
-	
+	*/
 	@RequestMapping(value = "/{rno}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> remove(@PathVariable("rno") Integer rno) {
 		
@@ -121,7 +121,7 @@ public class ReplyController {
 			map.put("PageMaker", pageMaker);
 			
 			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-			
+				
 		}catch(Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);

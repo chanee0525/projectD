@@ -6,7 +6,7 @@
 <configuration>
 
 	<typeAliases>
-		<package name="org.zerock.damain" />
+		<package name="org.zerock.domain" />
 	</typeAliases>
 
 </configuration>

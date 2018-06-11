@@ -10,12 +10,13 @@
 <!-- Form -->
 
 
-<form role="form" method="post">
-	<input type='hidden' name='bno' value="${boardVO.bno}"> <input
-		type='hidden' name='page' value="${cri.page}"> <input
-		type='hidden' name='perPageNum' value="${cri.perPageNum}"> <input
-		type='hidden' name='searchType' value="${cri.searchType}"> <input
-		type='hidden' name='keyword' value="${cri.keyword}">
+<form role="form" method="post" style="width:100%">
+	<input type='hidden' name='bno' value="${boardVO.bno}"> 
+	<input type='hidden' name='page' value="${cri.page}"> 
+	<input type='hidden' name='perPageNum' value="${cri.perPageNum}"> 
+	<input type='hidden' name='searchType' value="${cri.searchType}"> 
+	<input type='hidden' name='keyword' value="${cri.keyword}">
+	
 
 
 
@@ -49,8 +50,12 @@
 		</ul>
 	</div>
 
-	<div class="row">
-		<div class="col-md-12">
+	<style>
+.
+</style>
+
+	<div class="row" style="width:100%">
+		<div class="col-md-12" style="width:100%">
 			<div class="box box-success">
 				<div class="box-header">
 					<h3 class="box-title">ADD REPLY</h3>
@@ -63,8 +68,8 @@
 						id="newReplyText">
 				</div>
 
-				<div class="box-footer">
-					<button type="submit" class="btn btn-primary" id="replyAddBtn">ADD
+				<div align="right"  class="box-footer" >
+					<button type="submit" class="btn btn-primary" id="replyAddBtn" >ADD
 						REPLY</button>
 				</div>
 
@@ -75,16 +80,16 @@
 
 
 
-<!--  	<ul class="timeline">
-		<li class="time-lable" od="repliesDiv"><span class="bg-green">
-				Replies List</span>
+	<ul class="timeline">
+		<li class="time-lable" id="repliesDiv"><span class="bg-green">
+				Replies List</span></li>
 	</ul> 
 
 	<div class='text-center'>
 		<ul id="pagination" class="pagination pagination-sm no-margin">
 
 		</ul>
-	</div> -->
+	</div>
 
 	<script id="template" type="text/x-handlebars-template">
 {{#each .}}
@@ -94,11 +99,11 @@
 <span class="time">
 <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
 </span>
-<h3 c;ass="timeline-header"><strong>{{rno}}</strong> -{{replayer}}</h3>
+<h3 class="timeline-header"><strong>{{rno}}</strong> -{{replayer}}</h3>
 <div class="timeline-body">{{replytext}}</div>
 <div class="timeline-footer">
 <a class="btn btn-primary btn-xs"
-data-toggle="modal" data-target="modifyModal">Modify</a>
+data-toggle="modal" data-target="#modifyModal">Modify</a>
 </div>
 </div>
 </li>
@@ -145,6 +150,70 @@ data-toggle="modal" data-target="modifyModal">Modify</a>
 				formObj.attr("action", "/sboard/list");
 				formObj.submit();
 			});
+		});
+
+		Handlebars.registerHelper("prettifyDate", function(timeValue) {
+			var dateObj = new Date(timeValue);
+			var year = dateObj.getFullYear();
+			var month = dateObj.getMonth() + 1;
+			var date = dateObj.getDate();
+			return year + "/" + month + "/" + date;
+
+		});
+
+		var printData = function(replyArr, target, templateObject) {
+
+			var template = Handlebars.compile(templateObject.html());
+			var html = template(replyArr);
+			$(".replyLi").remove();
+			target.after(html);
+		}
+
+		var bno = ${boardVO.bno};
+		var replyPage = 1;
+
+		function getPage(pageInfo) {
+
+			$.getJSON(pageInfo, function(data) {
+				printData(data.list, $("#repliesDiv"), $('#template'));
+				printPaging(data.PageMaker, $(".pagination"));
+
+				/* $("#modifyModal").modal('hide'); */
+
+			});
+
+		}
+
+		var printPaging = function(pageMaker, target) {
+			var str = "";
+			if (pageMaker.prev) {
+				str += "<li><a href='" + (pageMaker.startPage - 1)
+						+ "'> << </a></li>";
+			}
+			for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+				var strClass = pageMaker.cri.page == i ? 'class=active' : '';
+				str += "<li "+strClass+"><a href='"+i+"'>"+i+"</a></li>";
+			}
+
+			if (pageMaker.next) {
+				str += "<li><a href='" + (pageMaker.endPage + 1)+"'> >> </a></li>";
+			}
+
+			target.html(str);
+		};
+		
+		$("#repliesDiv").on("click", function() {
+			if($(".timeline li").size() > 1) {
+				return;
+			}
+			getPage("/replies/"+bno+"/1");
+		});
+		
+		
+		$(".pagination").on("click", "li a", function(event) {
+			event.preventDefault();
+			replyPage = $(this).attr("href");
+			getPage("/replies/"+bno+"/"+replyPage);
 		});
 	</script>
 

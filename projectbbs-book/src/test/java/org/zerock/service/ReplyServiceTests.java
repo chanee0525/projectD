@@ -25,11 +25,11 @@ public class ReplyServiceTests {
 	@Inject
 	private ReplyService service;
 	
-	@Test
+/*	@Test
 	public void listTest() throws Exception {
 	log.info(service.listReply(1));	
 	}
-	
+	*/
 	@Test
 	public void insertTest() throws Exception {
 	

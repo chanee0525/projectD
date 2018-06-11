@@ -5,18 +5,17 @@
 
 <mapper namespace="org.zerock.mapper.ReplyMapper">
 
-	<select id="list" resultType="org.zerock.domain.ReplyVO">
+<!-- 	<select id="list" resultType="org.zerock.domain.ReplyVO">
 		select
 		*
 		from
 		tbl_reply
-		where bno =
-		#{bno}
+		where bno = #{bno}
 		order by rno desc
 
-	</select>
+	</select> -->
 
-	<select id="listPage" resultType="org.zerock.domain.ReplyVO">
+	<select id="listPage" resultType="ReplyVO">
 		select
 		*
 		from

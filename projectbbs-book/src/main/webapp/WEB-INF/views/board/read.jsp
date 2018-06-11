@@ -9,7 +9,7 @@
 <!-- Form -->
 
 
-<form role="form" method="post">
+<form role="form" method="post" style="width:100%">
 	<input type='hidden' name='bno' value="${boardVO.bno}">
 <%-- 	<input type='hidden' name='bno' value="${cri.page}">
 	<input type='hidden' name='bno' value="${Cri.perPageNum}"> --%>
