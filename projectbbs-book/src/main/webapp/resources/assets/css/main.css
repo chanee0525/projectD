@@ -3158,9 +3158,9 @@ body.is-loading #intro:not (.hidden ) +#header+#nav {
 
 #main>* {
 	padding: 4rem 4rem 2rem 4rem;
-	border-top: solid 2px #eeeeee;
+	border-top: solid 2px #eeeeee; 
 	margin: 0;
-}
+}	
 
 #main>*:first-child {
 	border-top: 0;

@@ -6,6 +6,9 @@
 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+<style>
+.active{
+background-color:#eeeeee}</style>
 
 <!-- Form -->
 
@@ -37,6 +40,7 @@
 
 
 	</div>
+
 
 
 
@@ -85,13 +89,21 @@
 				Replies List</span></li>
 	</ul> 
 
-	<div class='text-center'>
-		<ul id="pagination" class="pagination pagination-sm no-margin">
+<form style="justify-content:center" >
+<div class='text-center' >
+		<ul id="pagination" class="pagination pagination-sm no-margin" >
 
 		</ul>
 	</div>
 
+
+</form>
+	</div>
+
+
 	<script id="template" type="text/x-handlebars-template">
+
+
 {{#each .}}
 <li class="replyLi" data-rno={{rno}}>
 <i class="fa fa-comments bg-blue"></i>
@@ -99,7 +111,7 @@
 <span class="time">
 <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
 </span>
-<h3 class="timeline-header"><strong>{{rno}}</strong> -{{replayer}}</h3>
+<class="timeline-header"><strong>no.{{rno}}</strong><br><h4>{{replyer}}</h4>
 <div class="timeline-body">{{replytext}}</div>
 <div class="timeline-footer">
 <a class="btn btn-primary btn-xs"
@@ -112,8 +124,7 @@ data-toggle="modal" data-target="#modifyModal">Modify</a>
 
 
 
-
-	<script>
+	<script type="text/javascript">
 		$(document).ready(function() {
 			var formObj = $("form[role='form']");
 			console.log(formObj);
@@ -178,7 +189,7 @@ data-toggle="modal" data-target="#modifyModal">Modify</a>
 				printData(data.list, $("#repliesDiv"), $('#template'));
 				printPaging(data.PageMaker, $(".pagination"));
 
-				/* $("#modifyModal").modal('hide'); */
+				$("#modifyModal").hide('slow');
 
 			});
 
@@ -190,11 +201,13 @@ data-toggle="modal" data-target="#modifyModal">Modify</a>
 				str += "<li><a href='" + (pageMaker.startPage - 1)
 						+ "'> << </a></li>";
 			}
+			
+			console.log("----------------------")
 			for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
 				var strClass = pageMaker.cri.page == i ? 'class=active' : '';
 				str += "<li "+strClass+"><a href='"+i+"'>"+i+"</a></li>";
 			}
-
+			console.log("----------------------active")
 			if (pageMaker.next) {
 				str += "<li><a href='" + (pageMaker.endPage + 1)+"'> >> </a></li>";
 			}
@@ -214,6 +227,54 @@ data-toggle="modal" data-target="#modifyModal">Modify</a>
 			event.preventDefault();
 			replyPage = $(this).attr("href");
 			getPage("/replies/"+bno+"/"+replyPage);
+		});
+		
+		var replyObj = $("#newReplyWriter");
+		var replytextObj = $("#newReplyText");
+		
+		$("#replyAddBtn").on("click", function() {
+			
+			console.log("add btn click......................");	
+			
+
+			
+			
+			
+			console.log(replyObj);
+			console.log(replyObj.val());
+			
+		
+			var replyer = replyObj.val();
+			
+			
+			console.log(replytextObj.val());
+		 	
+			
+			$.ajax({
+			
+				type:'post',
+				url:'/replies/',
+				headers:{
+					"Content-Type":"application/json",
+					"X-HTTP-Method-Override" : "POST"},
+				dataType:'text',
+				data:JSON.stringify ({bno:bno,replyer:replyer,replytext:replytextObj.val()}),
+				success:function(result){	
+				if(result == 'SUCCESS'){
+				console.log("result:"+result);
+					alert("등록되었습니다.");
+					ReplyPage = 1;
+					getPage("/replies/"+bno+"/"+replyPage);
+					replyObj.val("");
+					replytextObj.val("");
+					
+				}
+				console.log("end ajax......................");	
+				}
+			});
+			
+			
+			
 		});
 	</script>
 

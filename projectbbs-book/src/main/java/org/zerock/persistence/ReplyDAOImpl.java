@@ -28,11 +28,11 @@ public class ReplyDAOImpl implements ReplyDAO {
 	@Override
 	public List<ReplyVO> listPage(Integer bno, Criteria cri) throws Exception{
 		
+	/*	System.out.println("-----------------------------------1");
 		System.out.println("-----------------------------------1");
 		System.out.println("-----------------------------------1");
 		System.out.println("-----------------------------------1");
-		System.out.println("-----------------------------------1");
-		System.out.println("-----------------------------------1");
+		System.out.println("-----------------------------------1");*/
 		
 		Map<String, Object> paramMap = new HashMap<>();
 		

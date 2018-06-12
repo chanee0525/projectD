@@ -46,8 +46,8 @@
 		<!-- Nav -->
 		<nav id="nav">
 		<ul class="links">
-			<li class="active"><a href="/board/listPage">LETTERS</a></li>
-			<li><a href="/board/register">POSTBOX</a></li>
+			<li class="active"><a href="/sboard/list">LETTERS</a></li>
+			<li><a href="/sboard/register">POSTBOX</a></li>
 			<li><a href="/board/gallery2">Gallery</a></li>
 		</ul>
 		<ul class="icons">
@@ -71,3 +71,5 @@
 			<script src="/resources/assets/js/skel.min.js"></script>
 			<script src="/resources/assets/js/util.js"></script>
 			<script src="/resources/assets/js/main.js"></script>
+			
+			
