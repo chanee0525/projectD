@@ -12,6 +12,20 @@ background-color:#eeeeee}</style>
 
 <!-- Form -->
 
+<style>
+
+input[type="submit"].small, input[type="reset"].small, input[type="button"].small, button.small, .button.small{
+
+font-size: 0.7rem;
+height: 2.0rem;
+line-height: 2.0rem;
+padding: 0 1.0rem;
+}
+
+
+</style>
+
+
 
 <form role="form" method="post" style="width:100%">
 	<input type='hidden' name='bno' value="${boardVO.bno}"> 
@@ -40,6 +54,7 @@ background-color:#eeeeee}</style>
 
 
 	</div>
+	
 
 
 
@@ -57,6 +72,48 @@ background-color:#eeeeee}</style>
 	<style>
 .
 </style>
+
+
+
+
+
+	<ul class="timeline">
+		<li class="time-lable" id="repliesDiv"><span class="bg-green">
+				Replies List</span></li>
+	</ul> 
+
+<form style="justify-content:center" >
+<div class='text-center' >
+		<ul id="pagination" class="pagination pagination-sm no-margin" >
+
+		</ul>
+	</div>
+
+
+</form>
+
+
+	<script id="template" type="text/x-handlebars-template">
+
+
+{{#each .}}
+<li class="replyLi" data-rno={{rno}}>
+<i class="fa fa-comments bg-blue"></i>
+<div class="timeline-item">
+<span class="time">
+<i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
+</span>
+<class="timeline-header"><strong>no.{{rno}}</strong><br><h4>{{replyer}}</h4>
+<div class="timeline-body">{{replytext}}</div>
+<div class="6u 12u$(small)">
+<ul class="actions vertical small">
+<li><button type="button" class="button special small" id="replymod">MOD</a></li>
+<li><button type="button" class="button special small" id="replydel">DEL</a></li>
+</div>
+</li>
+{{/each}}
+</script>
+
 
 	<div class="row" style="width:100%">
 		<div class="col-md-12" style="width:100%">
@@ -81,47 +138,31 @@ background-color:#eeeeee}</style>
 		</div>
 
 	</div>
+	
+			
+			<div class="row" style="width: 100%">
+				<div class="replyMod" style="width: 100%">
+					<div class="box box-success">
+						<div class="box-header">
+							<h3 class="box-title">MODIFY REPLY</h3>
+						</div>
+						<div class="box-body" data-rno>
+							<label for="ModReplyText">MODIFY</label> <input
+								class="form-control" type="text" placeholder="reply Text"
+								id="newReplyText">
+						</div>
 
+						<div align="right" class="box-footer">
+							<button type="submit" class="btn btn-primary" id="replyModBtn">Mod
+								REPLY</button>
+							<button type="submit" class="btn btn-primary" id="replyDelBtn">Del
+								REPLY</button>
+							<button type="submit" class="btn btn-primary" id="replyDelBtn">Close</button>
+						</div>
+						</div>
+	
 
-
-	<ul class="timeline">
-		<li class="time-lable" id="repliesDiv"><span class="bg-green">
-				Replies List</span></li>
-	</ul> 
-
-<form style="justify-content:center" >
-<div class='text-center' >
-		<ul id="pagination" class="pagination pagination-sm no-margin" >
-
-		</ul>
-	</div>
-
-
-</form>
-	</div>
-
-
-	<script id="template" type="text/x-handlebars-template">
-
-
-{{#each .}}
-<li class="replyLi" data-rno={{rno}}>
-<i class="fa fa-comments bg-blue"></i>
-<div class="timeline-item">
-<span class="time">
-<i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
-</span>
-<class="timeline-header"><strong>no.{{rno}}</strong><br><h4>{{replyer}}</h4>
-<div class="timeline-body">{{replytext}}</div>
-<div class="timeline-footer">
-<a class="btn btn-primary btn-xs"
-data-toggle="modal" data-target="#modifyModal">Modify</a>
-</div>
-</div>
-</li>
-{{/each}}
-</script>
-
+	
 
 
 	<script type="text/javascript">
@@ -274,6 +315,15 @@ data-toggle="modal" data-target="#modifyModal">Modify</a>
 			});
 			
 			
+			
+		});
+		
+		$("#replymod").on("click", ".replyLi", function(event) {
+			
+			var reply = $(this);
+			
+			$("#replytext").val(reply.find('.timeline-body').text());
+			$(".replyMod").html(reply.attr("data-rno"));
 			
 		});
 	</script>
