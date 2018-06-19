@@ -98,12 +98,12 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 <span class="time">
 <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
 </span>
-<class="timeline-header"><strong>no.{{rno}}</strong><br><h4>{{replyer}}</h4>
+<div class="timeline-header">{{rno}}</div>
+<div class="timeline-replyer"><h4>{{replyer}}</h4></div>
 <div class="timeline-body">{{replytext}}</div>
-<div class="6u 12u$(small)">
-<ul class="actions vertical small">
-<li><button type="button" class="button special small" id="replymod">MOD</a></li>
-<li><button type="button" class="button special small" id="replydel">DEL</a></li>
+<div class="timeline-footer">
+<a class="6u 12u$(small)" data-toggle="modal" data-target=".modifyModal" id="ReplylistModBtn">MODIFY</a>
+</div>
 </div>
 </li>
 {{/each}}
@@ -142,31 +142,27 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 						<div class="modal-content">
 							<div align="right" class="modal-header">
 								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">&times;</button>
+									aria-hidden="true" id="ModalCloseBtn">&times;</button>
 								</div>
 								<h3 class="modal-title" id="myModalLabel">MODIFY MODAL</h3>
 							</div>
-							<div class="modal-body">
+							<div class="modal-body" data-rno>
 								<div class="form-group">
-									<label>REPLY</label> <input class="form-control" name='relply'
+									<label>REPLY</label> <input class="form-control" id="replytext" name='relply'
 										value='new reply' style="width: 100%">
 								</div>
 								<div class="form-group">
-									<label>REPLYER</label> <input class="form-control"
+									<label>REPLYER</label> <input class="form-control" id="replyer"
 										name='relplyer' value='relplyer' readOnly="readOnly">
-								</div>
-								<div class="form-group">
-									<label>REPLY DATE</label> <input class="form-control"
-										name='relplyDate' value='2018-06-18 16:05'>
 								</div>
 							</div>
 						</div>
 					</div>
 	<div align="right" class="modal-footer">
-	<button id='modalModBtn' type="button" class="modalModBtn">MODIFY</button>
-	<button id='modalRemoveBtn' type="button" class="modalRemoveBtn">REMOVE</button>
+	<button id='modalModBtn' type="button" class="modalModBtn" id="replyModBtn">MODIFY</button>
+	<button id='modalRemoveBtn' type="button" class="modalRemoveBtn" id="replyRmvBtn">REMOVE</button>
 	<!-- <button id='modalRegisterBtn' type="button" class="modalRegisterBtn">REGISTER</button> -->
-	<button id='modalcloseBtn' type="button" class="modalcloseBtn">BACK</button>
+	<button id='modalcloseBtn' type="button" class="modalcloseBtn" data-dismiss="modal">BACK</button>
 				</div>
 			</div>
 		</div>
@@ -364,19 +360,28 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 	$(".timeline").on("click", ".replyLi", function(event) {
 
 		var reply = $(this);
+/* 		console.dir("reply........",reply);
+		console.log("dir..........",reply.parent("dir").parent("dir"));
+		
+ */
 
 		$("#replytext").val(reply.find('.timeline-body').text());
-		$(".replyMod").html(reply.attr("data-rno"));
+		$("#replyer").val(reply.find('.timeline-replyer').text());
 		
-		console.log("...................")
+		
+		$(".modal-title").html(reply.attr("data-rno"));
+		
+			
+		
 		
 		$(".modifyModal").show('slow');
 		
 		console.log("...........modifyModal click........")
+		console.log(this)
 
 	});
 	
-	
+ 	
 	var modal = $(".modifyModal");
 	var modalInputReply = modal.find("input[name='reply']");
 	var modalInputReplyer = modal.find("input[name='replyer']");
@@ -389,20 +394,37 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 	
 	
 	
- 	$(".replymod").on("click", function(e) {
+ 	$(".modalModBtn").on("click", function(e) {
+ 		
+ 		var rno = $(".modal-title").html();
+ 		var replytext = $("#replytext").val();
+ 		
+ 		$.ajax({
+ 			type:'put',
+ 		url:'/replies/'+rno,
+ 		headers: {
+ 			"Content-Type": "application/json",
+ 			"X-HTTP-Method-Override": "PUT"},
+ 		data:JSON.stringify({replytext:replytext}),
+ 		dataType:'text',
+ 		success:function(result){
+ 			console.log("result:"+result);
+ 			if(result == 'SUCCESS'){
+ 				alert("수정되었습니다.");
+ 				getPage("/replies/"+bno+"/"+replyPage);
+ 		}
+ 		}});
+ 		});
 		
-		modal.find("input").val("");
-		modalInputReplyDate.closest("div").hide();
-		modal.find("button[id !='modalCloseBtn']").hide();
 		
-		modalRegisterBtn.show();
+		/* modalRegisterBtn.show();
 		
-		$(".replymod").modal("show");
+		$(".replymod").modal("show"); */
 		
-	}); 
+	
  	
- 	 $("#modalCloseBtn").click(function(){
- 		replymod.modal("hide");
+ 	 $("#ModalCloseBtn").click(function(){
+ 		$(".modifyModal").hide('slow');
      });
 	
 	
