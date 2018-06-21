@@ -6,6 +6,8 @@
 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+	
+	
 <style>
 .active {
 	background-color: #eeeeee
@@ -22,7 +24,23 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 	line-height: 2.0rem;
 	padding: 0 1.0rem;
 }
+
+#myModal {
+display:none; 
+position: relative;
+background-color:#FFFFFF;
+position:absolute;
+padding:10px;
+border:2px solid #E2E2E2;
+z-Index:1;
+padding-top: 100px;
+
+
+
+}
+
 </style>
+
 
 
 
@@ -102,7 +120,7 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 <div class="timeline-replyer"><h4>{{replyer}}</h4></div>
 <div class="timeline-body">{{replytext}}</div>
 <div class="timeline-footer">
-<a class="6u 12u$(small)" data-toggle="modal" data-target=".modifyModal" id="ReplylistModBtn">MODIFY</a>
+<a class="6u 12u$(small) modShowBtn" data-toggle="modal" data-target=".modifyModal" id="ReplylistModBtn">MODIFY</a>
 </div>
 </div>
 </li>
@@ -110,7 +128,8 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 </script>
 
 
-<  	<div class="row" style="width: 100%">
+	
+	<div class="row" style="width: 100%">
 		<div class="col-md-12" style="width: 100%">
 			<div class="box box-success">
 				<div class="box-header">
@@ -130,45 +149,53 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 				</div>
 
 			</div>
-		</div> 
+		</div>
 
 	</div>
-	<div class="modifyModal" style="width: 100%">
+	
+	
+	
+	<!-- modal -->
+	
+	<div class="modifyModal" style="width: 100%" id="myModal">
 		<div class="col-md-12" style="width: 100%">
-			<div class="box box-success">
-				<div class="modal hide" id="myModal" tabindex="-1" role="dialog"
-					area-labelledby="myModalLabel" aria-hidden="true">
+			<div class="box box-success"> 
+				<div class="modal fade"  tabindex="-1" role="dialog" area-labelledby="myModalLabel" aria-hidden="true">
+				
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div align="right" class="modal-header">
 								<button type="button" class="close" data-dismiss="modal"
 									aria-hidden="true" id="ModalCloseBtn">&times;</button>
-								</div>
-								<h3 class="modal-title" id="myModalLabel">MODIFY MODAL</h3>
 							</div>
-							<div class="modal-body" data-rno>
-								<div class="form-group">
-									<label>REPLY</label> <input class="form-control" id="replytext" name='relply'
-										value='new reply' style="width: 100%">
-								</div>
-								<div class="form-group">
-									<label>REPLYER</label> <input class="form-control" id="replyer"
-										name='relplyer' value='relplyer' readOnly="readOnly">
-								</div>
+							<h3 class="modal-title" id="myModalLabel">MODIFY MODAL</h3>
+						</div>
+						<div class="modal-body" data-rno>
+							<div class="form-group">
+								<label>REPLY</label> <input class="form-control" id="replytext"
+									name='relply' value='new reply' style="width: 100%">
+							</div>
+							<div class="form-group">
+								<label>REPLYER</label> <input class="form-control" id="replyer"
+									name='relplyer' value='relplyer' readOnly="readOnly">
 							</div>
 						</div>
 					</div>
-	<div align="right" class="modal-footer">
-	<button id='modalModBtn' type="button" class="modalModBtn" id="replyModBtn">MODIFY</button>
-	<button id='modalRemoveBtn' type="button" class="modalRemoveBtn" id="replyRmvBtn">REMOVE</button>
-	<!-- <button id='modalRegisterBtn' type="button" class="modalRegisterBtn">REGISTER</button> -->
-	<button id='modalcloseBtn' type="button" class="modalcloseBtn" data-dismiss="modal">BACK</button>
+				</div>
+				<div align="right" class="modal-footer">
+					<button id='modalModBtn' type="button" class="modalModBtn"
+						id="replyModBtn">MODIFY</button>
+					<button id='modalRemoveBtn' type="button" class="modalRemoveBtn"
+						id="replyRmvBtn">REMOVE</button>
+					<!-- <button id='modalRegisterBtn' type="button" class="modalRegisterBtn">REGISTER</button> -->
+					<button id='modalcloseBtn' type="button" class="modalcloseBtn"
+						data-dismiss="modal">BACK</button>
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
-	
+ 	</div>
+</div> 
+
 
 
 
@@ -207,10 +234,7 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 
 			e.preventDefault();
 		});
-		
-		
-		
-		
+
 		$(".modify").on("click", function(e) {
 
 			e.preventDefault();
@@ -268,11 +292,11 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 		$.getJSON(pageInfo, function(data) {
 			printData(data.list, $("#repliesDiv"), $('#template'));
 			printPaging(data.PageMaker, $(".pagination"));
-			
+
 			console.log("----------------pagination")
 
 			$(".modifyModal").hide('slow');
-			
+
 			console.log("----------------modal hide")
 
 		});
@@ -360,79 +384,112 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 	$(".timeline").on("click", ".replyLi", function(event) {
 
 		var reply = $(this);
-/* 		console.dir("reply........",reply);
-		console.log("dir..........",reply.parent("dir").parent("dir"));
+		/* 		console.dir("reply........",reply);
+		 console.log("dir..........",reply.parent("dir").parent("dir"));
 		
- */
+		 */
 
 		$("#replytext").val(reply.find('.timeline-body').text());
 		$("#replyer").val(reply.find('.timeline-replyer').text());
-		
-		
+
 		$(".modal-title").html(reply.attr("data-rno"));
-		
-			
-		
-		
-		$(".modifyModal").show('slow');
-		
+
+		//$(".modifyModal").show('slow');
+
 		console.log("...........modifyModal click........")
 		console.log(this)
 
+		
 	});
 	
- 	
+	$(".timeline").on("click", ".modShowBtn", function(event) {
+
+		var reply = $(this);
+		/* 		console.dir("reply........",reply);
+		 console.log("dir..........",reply.parent("dir").parent("dir"));
+		
+		 */
+
+		$("#replytext").val(reply.find('.timeline-body').text());
+		$("#replyer").val(reply.find('.timeline-replyer').text());
+
+		$(".modal-title").html(reply.attr("data-rno"));
+
+		$(".modifyModal").show('slow');
+
+		console.log("...........custom ..............modifyModal click........")
+		console.log(this)
+
+		
+	});
+
 	var modal = $(".modifyModal");
 	var modalInputReply = modal.find("input[name='reply']");
 	var modalInputReplyer = modal.find("input[name='replyer']");
 	var modalInputReplyDate = modal.find("input[name='replyDate']");
-	
+
 	var modalModBtn = $("#modalModBtn");
 	var modalRemoveBtn = $("#modalRemoveBtn");
 	var modalcloseBtn = $("#modalcloseBtn");
 	
-	
-	
-	
- 	$(".modalModBtn").on("click", function(e) {
- 		
- 		var rno = $(".modal-title").html();
- 		var replytext = $("#replytext").val();
- 		
- 		$.ajax({
- 			type:'put',
- 		url:'/replies/'+rno,
- 		headers: {
- 			"Content-Type": "application/json",
- 			"X-HTTP-Method-Override": "PUT"},
- 		data:JSON.stringify({replytext:replytext}),
- 		dataType:'text',
- 		success:function(result){
- 			console.log("result:"+result);
- 			if(result == 'SUCCESS'){
- 				alert("수정되었습니다.");
- 				getPage("/replies/"+bno+"/"+replyPage);
- 		}
- 		}});
- 		});
-		
-		
-		/* modalRegisterBtn.show();
-		
-		$(".replymod").modal("show"); */
-		
-	
- 	
- 	 $("#ModalCloseBtn").click(function(){
- 		$(".modifyModal").hide('slow');
-     });
-	
-	
-	
-	
 
+	$(".modalModBtn").on("click", function(e) {
+
+		var rno = $(".modal-title").html();
+		var replytext = $("#replytext").val();
+
+		$.ajax({
+			type : 'put',
+			url : '/replies/' + rno,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "PUT"
+			},
+			data : JSON.stringify({
+				replytext : replytext
+			}),
+			dataType : 'text',
+			success : function(result) {
+				console.log("result:" + result);
+				if (result == 'SUCCESS') {
+					alert("수정되었습니다.");
+					getPage("/replies/" + bno + "/" + replyPage);
+				}
+			}
+		});
+	});
+
+	/* modalRegisterBtn.show();
 	
-	
+	$(".replymod").modal("show"); */
+
+	$("#ModalCloseBtn").click(function() {
+		$(".modifyModal").hide('slow');
+	});
+
+	$(".modalRemoveBtn").on("click", function() {
+
+		var rno = $(".modal-title").html();
+		var replytext = $("#replytext").val();
+
+		$.ajax({
+			type : 'delete',
+			url : '/replies/' + rno,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "DELETE"
+			},
+			dataType : 'text',
+			success : function(result) {
+				console.log("result:" + result);
+				if (result == 'SUCCESS') {
+					alert("삭제되었습니다.");
+					getPage("/replies/" + bno + "/" + replyPage);
+
+				}
+			}
+		});
+	});
 </script>
 
 <%@ include file="../includes/footer.jsp"%>
