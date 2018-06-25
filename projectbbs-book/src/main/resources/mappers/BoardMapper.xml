@@ -14,7 +14,7 @@
 	<select id="read" resultType="org.zerock.domain.BoardVO">
 		select
 		bno, title, content, regdate,
-		updatedate, viewcnt
+		updatedate, viewcnt, replycnt 
 		from
 		tbl_board
 		where bno =#{bno}
@@ -24,6 +24,13 @@
 		update tbl_board set title = #{title}, content =
 		#{content}
 		where bno = #{bno}
+	</update>
+	
+
+	
+	<update id="updateViewCnt">
+	update tbl_board set viewcnt = viewcnt +1 where bno = #{bno}
+	
 	</update>
 
 	<delete id="delete">
@@ -55,10 +62,10 @@ from
 	</select>
 
 
-	<select id="listCriteria" resultType="org.zerock.domain.BoardVO">
+	<select id="listCriteria" resultType="BoardVO">
 <![CDATA[
 
-select bno, title, content, regdate, viewcnt
+select bno, title, content, regdate, viewcnt, replycnt
   from tbl_board where bno > 0
   order by bno desc, regdate desc
 limit #{pageStart}, #{perPageNum};

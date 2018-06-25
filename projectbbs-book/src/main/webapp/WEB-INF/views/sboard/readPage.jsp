@@ -96,12 +96,11 @@ padding-top: 100px;
 
 	<ul class="timeline">
 		<li class="time-lable" id="repliesDiv"><span class="bg-green">
-				Replies List</span></li>
+				Replies List <small id='replycntSmall'>[${boardVO.replycnt}]</small></span></li>
 	</ul>
 
 	<form style="justify-content: center">
 		<div class='pagination'></div>
-
 
 	</form>
 
@@ -298,11 +297,14 @@ padding-top: 100px;
 			$(".modifyModal").hide('slow');
 
 			console.log("----------------modal hide")
+			
+			$("#replycntSmall").html("[ " + data.PageMaker.totalCount + "]");
 
 		});
 
 	}
 
+	
 	var printPaging = function(pageMaker, target) {
 		var str = "";
 		if (pageMaker.prev) {
@@ -490,6 +492,8 @@ padding-top: 100px;
 			}
 		});
 	});
+	
+	
 </script>
 
 <%@ include file="../includes/footer.jsp"%>

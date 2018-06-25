@@ -13,5 +13,6 @@ public interface ReplyDAO {
 	public void update(ReplyVO vo) throws Exception;
 	public void delete(Integer rno) throws Exception;
 	public int count(Integer bno) throws Exception;
+	public int getBno(Integer rno) throws Exception;
 
 }

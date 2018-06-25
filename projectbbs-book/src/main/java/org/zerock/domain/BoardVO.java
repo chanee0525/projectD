@@ -10,8 +10,9 @@ import lombok.ToString;
 @Data
 public class BoardVO {
 	
-	public Integer bno, viewcnt;
+	public Integer bno;
 	public String title, content;
 	public Date regdate, updatedate;
+	public int viewcnt, replycnt;
 
 }

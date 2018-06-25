@@ -11,13 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-@Component
+/*@Component
 @Aspect
-public class SampleAdvice {
+*/public class SampleAdvice {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SampleAdvice.class);
 	
-	@Around("execution(* org.zerock.service.MessageService*.*(..))")
+	/*@Around("execution(* org.zerock.service.MessageService*.*(..))")*/
 
 	public Object timeLog(ProceedingJoinPoint pjp) throws Throwable {
 		

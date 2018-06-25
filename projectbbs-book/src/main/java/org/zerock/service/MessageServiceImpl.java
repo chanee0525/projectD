@@ -2,6 +2,7 @@ package org.zerock.service;
 
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.MessageVO;
 import org.zerock.persistence.MessageDAO;
 import org.zerock.persistence.PointDAO;
@@ -18,13 +19,11 @@ public class MessageServiceImpl implements MessageService {
 	@Inject
 	private PointDAO pointDAO;
 	
+	@Transactional
 	@Override
 	public void addMessage(MessageVO vo) throws Exception {
 	
-		log.info("vo..."+vo);
 	messageDAO.create(vo);
-	
-	log.info("vo get sender..."+vo.getSender());
 	pointDAO.updatePoint(vo.getSender(), 10);
 
 	}

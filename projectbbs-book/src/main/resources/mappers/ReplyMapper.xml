@@ -32,6 +32,11 @@
 
 
 	</select>
+	
+	<select id="getBno" resultType="integer">
+	select bno from tbl_reply where rno =#{rno}
+	
+	</select>
 
 	<insert id="create">
 

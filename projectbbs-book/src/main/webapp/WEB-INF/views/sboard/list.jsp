@@ -28,7 +28,7 @@
 				<tr>
 					<td>${boardVO.bno}</td>
 					<td><a
-						href='/sboard/readPage${pageMaker.makeSearch(pageMaker.cri.page )}&bno=${boardVO.bno}'>${boardVO.title}</a></td>
+						href='/sboard/readPage${pageMaker.makeSearch(pageMaker.cri.page )}&bno=${boardVO.bno}'>${boardVO.title}<strong>[${boardVO.replycnt}]</strong></a></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 							value="${boardVO.regdate}" /></td>
 					<td><span class="badge bg-red">${boardVO.viewcnt}</span></td>
@@ -40,8 +40,6 @@
 
 
 </div>
-
-
 
 
 <%-- <span>PAGE MAKER...................${pageMaker }</span> --%>
