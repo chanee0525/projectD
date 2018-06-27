@@ -9,6 +9,8 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -67,6 +69,20 @@ public class UploadController {
 		
 		
 	}
+	
+	
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8") //후자 한국어 설정
+	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
+		
+		logger.info("originalName: " + file.getOriginalFilename());
+		logger.info("size: " + file.getSize() );
+		logger.info("contentType: "+ file.getContentType());
+		
+		return new ResponseEntity<>(file.getOriginalFilename(),HttpStatus.CREATED); //created. 정상적으로 생성되었다 상태, status.ok 사용해도 됌
+		
+	}
+	
+	
 
 	
 	

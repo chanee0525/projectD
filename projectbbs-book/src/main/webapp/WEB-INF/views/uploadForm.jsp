@@ -23,6 +23,12 @@ iframe {
 
 	<iframe name="zeroFrame"></iframe>
 
+
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+	
 	<script>
 		function addFilePath(msg) {
 			alert(msg);
@@ -30,12 +36,6 @@ iframe {
 		}
 	</script>
 
-	<script src="/resources/assets/js/jquery.min.js"></script>
-	<script src="/resources/assets/js/jquery.scrollex.min.js"></script>
-	<script src="/resources/assets/js/jquery.scrolly.min.js"></script>
-	<script src="/resources/assets/js/skel.min.js"></script>
-	<script src="/resources/assets/js/util.js"></script>
-	<script src="/resources/assets/js/main.js"></script>
 
 
 
