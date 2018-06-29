@@ -29,12 +29,9 @@ color: gray;
 </style>
 
 <h3>Ajax File Upload</h3>
-<div class='fileDrop'>
+<div class='fileDrop'> </div>
 
-</div>
-
-<div class='uploadList'>
-</div>
+<div class='uploadedList'> </div>
 
 <script
   src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -46,8 +43,8 @@ $(".fileDrop").on("dragenter dragover", function(event) {
 	event.preventDefault();
 	
 	var files = event.originalEvent.dataTransfer.files;
-	var file = files[0];
-	console.log(file);
+	var file=files[0];
+
 	
 });
 
@@ -55,13 +52,13 @@ $(".fileDrop").on("dragenter dragover", function(event) {
 $(".fileDrop").on("drop", function(event) {
 	event.preventDefault();
 	
+	
 	var files = event.originalEvent.dataTransfer.files;
-	var file=files[0];
+	var file = files[0];
+	console.log(file);
 	
 	var formData = new FormData();
-	
 	formData.append("file", file);
-	
 	
 	$.ajax({
 		url: '/uploadAjax',
@@ -71,12 +68,45 @@ $(".fileDrop").on("drop", function(event) {
 		contentType: false,
 		type: 'POST',
 		success: function(data) {
-			alert(data)
+			/* alert(data) */
+			
+			var str = "";
+			
+			console.log(data);
+			console.log(checkImageType(data));
+			
+			if(checkImageType(data)) {
+				str = "<div>" + "<img src='displayFile?fileName="+data+"'/>" + data + "</div>";
+				
+			}else{
+				str = "<div><a href='displayFile?fileName="+data+"'>" + getOriginalName(data)+"</a></div>";
+			}
+			$(".uploadedList").append(str);
+			
 			
 		}
 		
 	});
 });
+
+
+function checkImageType(fileName) {
+	var pattern = /jpg$|gif$|png$|jpeg$/i;
+	return fileName.match(pattern);
+	
+}
+
+function getOriginalName(fileName) {
+	if(checkImageType(fileName)){
+		return;
+	}
+	
+	var idx = fileName.indexOf("_") + 1 ;
+	return fileName.substr(idx);
+	
+}
+
+
 
 </script>
 
