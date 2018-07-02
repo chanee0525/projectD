@@ -1,5 +1,8 @@
 package org.zerock.controller;
 
+
+
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 import java.io.File;
@@ -25,6 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.uitl.MediaUtils;
 import org.zerock.uitl.UploadFileUtils;
+
+import lombok.extern.log4j.Log4j;
 
 @Controller
 public class UploadController {
@@ -83,8 +88,8 @@ public class UploadController {
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
 		
 		logger.info("originalName: " + file.getOriginalFilename());
-		logger.info("size: " + file.getSize() );
-		logger.info("contentType: "+ file.getContentType());
+		/*logger.info("size: " + file.getSize() );
+		logger.info("contentType: "+ file.getContentType());*/
 		
 		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
 				HttpStatus.CREATED); //created. 정상적으로 생성되었다 상태, status.ok 사용해도 됌
@@ -115,8 +120,10 @@ public class UploadController {
 			
 			fileName = fileName.substring(fileName.indexOf("_")+1);
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-			headers.add("Content-Disposition", "attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO+8859-1")+"\"");
+			headers.add("Content-Disposition", "attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\"");
 		}
+		
+		logger.info(".....................................utf-8 filter");
 		
 		entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
 		
@@ -129,6 +136,30 @@ public class UploadController {
 		return entity;
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value="/deleteFile", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(String fileName){
+		
+		logger.info("deleted file:" + fileName);
+		
+		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+		
+		MediaType mType = MediaUtils.getMediaType(formatName);
+		
+		if(mType != null) {
+			
+			String front = fileName.substring(0, 12);
+			String end = fileName.substring(14);
+			new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+			
+		}
+		
+		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+		
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+		
+	}
 	
 	
 }

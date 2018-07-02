@@ -112,8 +112,6 @@ public class UploadFileUtils {
 		
 		return iconName.substring(uploadPath.length()).replace(File.separatorChar, '/');
 		
-		
 	}
-	
 
 }

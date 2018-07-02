@@ -80,7 +80,7 @@
 
 <!-- Break -->
 
-<form style="justify-content: center; width:  100%;">
+<form style="justify-content: center; width: 100%;">
 	<div class="pagination" >
 		<c:if test="${pageMaker.prev}">
 			<a href="list${pageMaker.makeQuery(pageMaker.startPage-1)}"

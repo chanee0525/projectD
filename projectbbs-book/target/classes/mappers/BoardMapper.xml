@@ -26,6 +26,10 @@
 		where bno = #{bno}
 	</update>
 	
+	<insert id="addAttach">
+	insert into tbl_attach(fullname, bno) values (#{fullName}, LAST_INSERT_ID())	
+	</insert>
+	
 
 	
 	<update id="updateViewCnt">
