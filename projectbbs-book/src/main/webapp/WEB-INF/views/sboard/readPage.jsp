@@ -6,8 +6,8 @@
 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
-	
-	
+
+
 <style>
 .active {
 	background-color: #eeeeee
@@ -26,19 +26,44 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 }
 
 #myModal {
-display:none; 
-position: relative;
-background-color:#FFFFFF;
-position:absolute;
-padding:10px;
-border:2px solid #E2E2E2;
-z-Index:1;
-padding-top: 100px;
+	display: none;
+	position: relative;
+	background-color: #FFFFFF;
+	position: absolute;
+	padding: 10px;
+	border: 2px solid #E2E2E2;
+	z-Index: 1;
+	padding-top: 100px;
+}
+</style>
 
-
-
+<style type="text/css">
+.popup {
+	position: absolute;
 }
 
+.back {
+	background-color: gray;
+	opacity: 0.5;
+	width: 100%;
+	height: 300%;
+	overflow: hidden;
+	z-index: 1101;
+}
+
+.front {
+	z-index: 1110;
+	opacity: 1;
+	border: 1px;
+	margin: auto;
+}
+
+.show {
+	position: relative;
+	max-width: 1200px;
+	max-height: 800px;
+	overflow: auto;
+}
 </style>
 
 
@@ -64,6 +89,11 @@ padding-top: 100px;
 		<input type="text" id="demo-name" value="${boardVO.title}"
 			readonly="readonly" />
 	</div>
+	
+	<div class='popup back' style="display:none"></div>
+	<div id="popup_front" class='popup front' style="display:none">
+	<img id="popup_img">
+	</div>
 
 	<!-- Break -->
 	<div class="12u$">
@@ -72,6 +102,16 @@ padding-top: 100px;
 
 	</div>
 
+	<div class="box-footer">
+		<hr>
+		<label for="uploadedlist"><h3>UPLOADED LIST▼</h3></label>
+		<div class="uploadedlist" id="uploadedlist"></div>
+
+		<ul class="mailbox-attachments clearfix uploadedList"
+			style="list-style-type: none">
+		</ul>
+		<hr>
+	</div>
 
 
 
@@ -86,9 +126,6 @@ padding-top: 100px;
 		</ul>
 	</div>
 
-	<style>
-.
-</style>
 
 
 
@@ -96,7 +133,8 @@ padding-top: 100px;
 
 	<ul class="timeline">
 		<li class="time-lable" id="repliesDiv"><span class="bg-green">
-				Replies List <small id='replycntSmall'>[${boardVO.replycnt}]</small></span></li>
+				Replies List <small id='replycntSmall'>[${boardVO.replycnt}]</small>
+		</span></li>
 	</ul>
 
 	<form style="justify-content: center">
@@ -127,7 +165,7 @@ padding-top: 100px;
 </script>
 
 
-	
+
 	<div class="row" style="width: 100%">
 		<div class="col-md-12" style="width: 100%">
 			<div class="box box-success">
@@ -151,16 +189,17 @@ padding-top: 100px;
 		</div>
 
 	</div>
-	
-	
-	
+
+
+
 	<!-- modal -->
-	
+
 	<div class="modifyModal" style="width: 100%" id="myModal">
 		<div class="col-md-12" style="width: 100%">
-			<div class="box box-success"> 
-				<div class="modal fade"  tabindex="-1" role="dialog" area-labelledby="myModalLabel" aria-hidden="true">
-				
+			<div class="box box-success">
+				<div class="modal fade" tabindex="-1" role="dialog"
+					area-labelledby="myModalLabel" aria-hidden="true">
+
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div align="right" class="modal-header">
@@ -181,6 +220,7 @@ padding-top: 100px;
 						</div>
 					</div>
 				</div>
+
 				<div align="right" class="modal-footer">
 					<button id='modalModBtn' type="button" class="modalModBtn"
 						id="replyModBtn">MODIFY</button>
@@ -192,8 +232,8 @@ padding-top: 100px;
 				</div>
 			</div>
 		</div>
- 	</div>
-</div> 
+	</div>
+</div>
 
 
 
@@ -281,7 +321,8 @@ padding-top: 100px;
 		$(".replyLi").remove();
 		target.after(html);
 	}
-
+	
+	
 	var bno = ${boardVO.bno};
 	var replyPage = 1;
 	var replyUL = $(".timeline")
@@ -297,14 +338,13 @@ padding-top: 100px;
 			$(".modifyModal").hide('slow');
 
 			console.log("----------------modal hide")
-			
+
 			$("#replycntSmall").html("[ " + data.PageMaker.totalCount + "]");
 
 		});
 
 	}
 
-	
 	var printPaging = function(pageMaker, target) {
 		var str = "";
 		if (pageMaker.prev) {
@@ -401,29 +441,34 @@ padding-top: 100px;
 		console.log("...........modifyModal click........")
 		console.log(this)
 
-		
 	});
-	
-	$(".timeline").on("click", ".modShowBtn", function(event) {
 
-		var reply = $(this);
-		/* 		console.dir("reply........",reply);
-		 console.log("dir..........",reply.parent("dir").parent("dir"));
-		
-		 */
+	$(".timeline")
+			.on(
+					"click",
+					".modShowBtn",
+					function(event) {
 
-		$("#replytext").val(reply.find('.timeline-body').text());
-		$("#replyer").val(reply.find('.timeline-replyer').text());
+						var reply = $(this);
+						/* 		console.dir("reply........",reply);
+						 console.log("dir..........",reply.parent("dir").parent("dir"));
+						
+						 */
 
-		$(".modal-title").html(reply.attr("data-rno"));
+						$("#replytext")
+								.val(reply.find('.timeline-body').text());
+						$("#replyer").val(
+								reply.find('.timeline-replyer').text());
 
-		$(".modifyModal").show('slow');
+						$(".modal-title").html(reply.attr("data-rno"));
 
-		console.log("...........custom ..............modifyModal click........")
-		console.log(this)
+						$(".modifyModal").show('slow');
 
-		
-	});
+						console
+								.log("...........custom ..............modifyModal click........")
+						console.log(this)
+
+					});
 
 	var modal = $(".modifyModal");
 	var modalInputReply = modal.find("input[name='reply']");
@@ -433,7 +478,6 @@ padding-top: 100px;
 	var modalModBtn = $("#modalModBtn");
 	var modalRemoveBtn = $("#modalRemoveBtn");
 	var modalcloseBtn = $("#modalcloseBtn");
-	
 
 	$(".modalModBtn").on("click", function(e) {
 
@@ -492,8 +536,58 @@ padding-top: 100px;
 			}
 		});
 	});
-	
+
+	var bno = ${boardVO.bno};
+	var template = Handlebars.compile($("#templateAttach").html());
+
+	$.getJSON("/sboard/getAttach/" + bno, function(list) {
+		$(list).each(function() {
+
+			var fileInfo = getFileInfo(this);
+			var html = template(fileInfo);
+			
+			$(".uploadedList").append(html);
+
+		});
+	});
+
+	$(".uploadedList").on("click", ".mailbox-attachment-info a",
+			function(event) {
+
+				var fileLink = $(this).attr("href");
+
+				if (checkImageType(fileLink)) {
+
+					event.preventDefault();
+
+					var imgTag = $("#popup_img");
+					imgTag.attr("src", fileLink);
+
+					console.log(imgTag.attr("src"));
+
+					$("#.popup_img").show('slow');
+					imgTag.addClass("show");
+				}
+
+			});
+
+	$("#popup_img").on("click", function() {
+		$(".popup").hide('slow');
+
+	});
 	
 </script>
 
+<script id="templateAttach" type="text/x-handlebars-template">
+
+<li data-src='{{fullName}}'>
+<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
+<div class="mailbox-attachments-info">
+<a href="{{getLink}}" class="mailbox-attachments-name">{{fileName}}</a>
+</div>
+</li>
+</script>
+
+
+<script type="text/javascript" src="/resources/js/upload.js"></script>
 <%@ include file="../includes/footer.jsp"%>

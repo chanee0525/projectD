@@ -22,64 +22,87 @@
 				placeholder="Enter your message" rows="6"></textarea>
 		</div>
 		<!-- Break -->
-		<div class="12u$">
+<!--  		<div class="12u$">
 			<ul class="actions">
-				<li><input type="submit" value="Send Message" class="send" /></li>
+				<li><input type="submit" value="Send Message" class="send" id="send" /></li>
 				<li><a class="button" href="/board/listPage">BACK</a></li>
-			</ul>
+			</ul> 
+ -->
 
 
-			<div class="row uniform">
-				<label for="exampleInputEmail1"><h3>
-						>>> File DROP Here
-						<h3></label>
-			</div>
-			<div class="filedrop"></div>
+			<div class="form-group" style="width:100%">
+				<label for="exampleInputEmail1"><h3>File DROP Here▼</h3></label>
+			<div class="fileDrop" id="fileDrop"></div>
+		</div>
 		</div>
 
-		<div class="box-footer" style="width: 100%" align="right">
-		<div>
-		<hr>
-		</div>
-		<ul class="mailbox-attachments clearfix uploadedList">
+		<div class="box-footer" >
+				<hr>
+				<label for="uploadedlist"><h3>UPLOADED LIST▼</h3></label>
+			<div class="uploadedlist" id="uploadedlist"></div>
+		
+		<ul class="mailbox-attachments clearfix uploadedList" style="list-style-type : none">
 		</ul>
-<!-- button............... -->
+				<hr>
+		
+		 		<div class="12u$" align="right">
+			<ul class="actions">
+				<li><input type="submit" value="Send Message" class="send" id="send" /></li>
+				<li><a class="button" href="/board/listPage">BACK</a></li>
+			</ul> 
+			</div>
 		</div>
-	</div>
-
-
 </form>
 
 <style>
-.filedrop {
+.fileDrop {
 	width: 100%;
-	height: 100px;
-	border: 1px dotted gray;
+	height: 200px;
+	border: solid 2px;
 	background-color: #5E5A5A;
 	margin: auto;
+	padding:0.75rem 1rem;
+	display: inline-block;
+	
 }
+
+li{
+
+display : inline-block;
+
+}
+
+.box-footer{
+width: 100%;
+
+
+}
+
+
+
 </style>
 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
 
 
-<script id="template" type="text/x-handlebars-template">
+	<script id="template" type="text/x-handlebars-template">
 <li>
 <span class="mailbox-attachments-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
 <div class="mailbox-attachments-info">
 <a href="{{getLink}}" class="mailbox-attachments-name">{{fileName}}</a>
-<a href="{{fullName}}" class="btn btn-default btn-xs full-right delbtn"><i class="fa fa-fw fa-remove"></i></a>
+<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn"><i class="fa fa-fw fa-remove"></i></a>
 </div>
 </li>
 </script>
 
 
 <script>
-var template = Handlebars.comfile($("#template").html());
+var template = Handlebars.compile($("#template").html());
 
 $(".fileDrop").on("dragenter dragover", function(event) {
-	event.preventDefault();
+	 event.preventDefault();
+	 console.log(event);
 	
 	
 });
@@ -109,8 +132,25 @@ $(".fileDrop").on("drop", function(event) {
 			$(".uploadedList").append(html);
 			
 		}
+	
 		
 	});
+	
+	$("#send").submit(function(event) {
+		event.preventDefault();
+		
+		var that = $(this);
+		var str = "";
+		
+		$(".uploadList .delbtn").each(function(index) {
+			str+= "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("href")+"'>";
+			
+		});
+		that.append(str);
+		that.get(0).submit();
+		
+	});
+	
 	
 	
 });
@@ -119,9 +159,6 @@ $(".fileDrop").on("drop", function(event) {
 </script>
 
 
-
-
-
-
+<script type="text/javascript" src="/resources/js/upload.js"></script>
 <%@ include file="../includes/footer.jsp"%>
 

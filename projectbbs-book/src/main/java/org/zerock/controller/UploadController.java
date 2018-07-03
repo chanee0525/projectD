@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.zerock.uitl.MediaUtils;
-import org.zerock.uitl.UploadFileUtils;
+import org.zerock.util.MediaUtils;
+import org.zerock.util.UploadFileUtils;
 
 import lombok.extern.log4j.Log4j;
 

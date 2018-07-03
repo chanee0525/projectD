@@ -1,4 +1,4 @@
-package org.zerock.uitl;
+package org.zerock.util;
 
 import java.util.HashMap;
 import java.util.Map;
