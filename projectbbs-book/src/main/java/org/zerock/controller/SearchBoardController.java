@@ -126,8 +126,9 @@ public class SearchBoardController {
 
 	}
 	
+	
+	@RequestMapping("/getAttach/{bno}")
 	@ResponseBody
-	@RequestMapping(value="/getAttach/{bno}")
 	public List<String> getAttach(@PathVariable("bno")Integer bno) throws Exception{
 		return service.getAttach(bno);
 	}

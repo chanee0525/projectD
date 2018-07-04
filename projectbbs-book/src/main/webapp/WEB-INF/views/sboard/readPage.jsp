@@ -4,8 +4,7 @@
 
 <%@ include file="../includes/header.jsp"%>
 
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+
 
 
 <style>
@@ -24,7 +23,6 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 	line-height: 2.0rem;
 	padding: 0 1.0rem;
 }
-
 #myModal {
 	display: none;
 	position: relative;
@@ -41,7 +39,6 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 .popup {
 	position: absolute;
 }
-
 .back {
 	background-color: gray;
 	opacity: 0.5;
@@ -50,19 +47,28 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 	overflow: hidden;
 	z-index: 1101;
 }
-
 .front {
 	z-index: 1110;
 	opacity: 1;
 	border: 1px;
 	margin: auto;
 }
-
 .show {
 	position: relative;
 	max-width: 1200px;
 	max-height: 800px;
 	overflow: auto;
+}
+
+.box-footer{
+width: 100%;
+
+}
+
+li{
+
+display : inline-block;
+
 }
 </style>
 
@@ -90,8 +96,8 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 			readonly="readonly" />
 	</div>
 	
-	<div class='popup back' style="display:none"></div>
-	<div id="popup_front" class='popup front' style="display:none">
+	<div class='popup back' style="display:none" id="popup_back"></div>
+	<div id="popup front" class='popup front' style="display:none">
 	<img id="popup_img">
 	</div>
 
@@ -107,14 +113,10 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 		<label for="uploadedlist"><h3>UPLOADED LIST▼</h3></label>
 		<div class="uploadedlist" id="uploadedlist"></div>
 
-		<ul class="mailbox-attachments clearfix uploadedList"
-			style="list-style-type: none">
+		<ul class="mailbox-attachments clearfix uploadedList" id="uploadedList" style="list-style-type: none">
 		</ul>
 		<hr>
 	</div>
-
-
-
 
 
 	<!-- Break -->
@@ -142,7 +144,7 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 
 	</form>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
 	<script id="template" type="text/x-handlebars-template">
 
 
@@ -251,7 +253,6 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 								class="form-control" type="text" placeholder="reply Text"
 								id="newReplyText">
 						</div>
-
 						<div align="right" class="box-footer">
 							<button type="submit" class="btn btn-primary" id="replyModBtn">Mod
 								REPLY</button>
@@ -261,7 +262,6 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 						</div>
 						</div>
 	
-
 	 -->
 
 
@@ -270,52 +270,63 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 		var formObj = $("form[role='form']");
 		console.log(formObj);
 		$("input[type='submit']").on("click", function(e) {
-
 			e.preventDefault();
 		});
-
 		$(".modify").on("click", function(e) {
-
 			e.preventDefault();
 			//alert("AAAAAAAAAAAAAAAAAAAAAAAAAA");
-
 			console.log(" modify check");
 			//alert("AAAAAAAAAAAAAAAAAAAAAAAAAA");
 			formObj.attr("action", "/sboard/modifyPage");
 			console.log("check check")
 			formObj.attr("method", "get");
-
 			formObj.submit();
-
 		});
 		$(".remove").on("click", function(e) {
 			e.preventDefault();
 			console.log(" remove check");
 			//formObj.submit();
+			
+			var replyCnt = $("#replycntSmall").html().replace(/[^0-9]/g,"");
+			
+			if(replyCnt > 0){
+				alert("댓글이 달린 게시물은 삭제할 수 없습니다.");
+				return;
+			}
+			
+			var arr = [];
+			$(".uploadedList li").each(function(index) {
+				arr.push($(this).attr("data-src"));
+				
+			});
+			
+			if(arr.length > 0){
+				$.post("/deleteAllFiles", {files:arr}, function() {
+					
+				});
+			}
+			
+			
 			formObj.attr("action", "/sboard/removePage");
 			formObj.submit();
 		});
+		
 		$(".list").on("click", function(e) {
 			//alert("AAAAAAAAAAAAAAAAAAAAAAAAAA");
 			e.preventDefault();
-
 			formObj.attr("method", "get");
 			formObj.attr("action", "/sboard/list");
 			formObj.submit();
 		});
 	});
-
 	Handlebars.registerHelper("prettifyDate", function(timeValue) {
 		var dateObj = new Date(timeValue);
 		var year = dateObj.getFullYear();
 		var month = dateObj.getMonth() + 1;
 		var date = dateObj.getDate();
 		return year + "/" + month + "/" + date;
-
 	});
-
 	var printData = function(replyArr, target, templateObject) {
-
 		var template = Handlebars.compile(templateObject.html());
 		var html = template(replyArr);
 		$(".replyLi").remove();
@@ -326,32 +337,22 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 	var bno = ${boardVO.bno};
 	var replyPage = 1;
 	var replyUL = $(".timeline")
-
 	function getPage(pageInfo) {
-
 		$.getJSON(pageInfo, function(data) {
 			printData(data.list, $("#repliesDiv"), $('#template'));
 			printPaging(data.PageMaker, $(".pagination"));
-
 			console.log("----------------pagination")
-
 			$(".modifyModal").hide('slow');
-
 			console.log("----------------modal hide")
-
 			$("#replycntSmall").html("[ " + data.PageMaker.totalCount + "]");
-
 		});
-
 	}
-
 	var printPaging = function(pageMaker, target) {
 		var str = "";
 		if (pageMaker.prev) {
 			str += "<li><a href='" + (pageMaker.startPage - 1)
 					+ "'> << </a></li>";
 		}
-
 		console.log("----------------------")
 		for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
 			var strClass = pageMaker.cri.page == i ? 'class=active' : '';
@@ -362,39 +363,28 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 			str += "<li><a href='" + (pageMaker.endPage + 1)
 					+ "'> >> </a></li>";
 		}
-
 		target.html(str);
 	};
-
 	$("#repliesDiv").on("click", function() {
 		if ($(".timeline li").size() > 1) {
 			return;
 		}
 		getPage("/replies/" + bno + "/1");
 	});
-
 	$(".pagination").on("click", "li a", function(event) {
 		event.preventDefault();
 		replyPage = $(this).attr("href");
 		getPage("/replies/" + bno + "/" + replyPage);
 	});
-
 	var replyObj = $("#newReplyWriter");
 	var replytextObj = $("#newReplyText");
-
 	$("#replyAddBtn").on("click", function() {
-
 		console.log("add btn click......................");
-
 		console.log(replyObj);
 		console.log(replyObj.val());
-
 		var replyer = replyObj.val();
-
 		console.log(replytextObj.val());
-
 		$.ajax({
-
 			type : 'post',
 			url : '/replies/',
 			headers : {
@@ -415,75 +405,54 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 					getPage("/replies/" + bno + "/" + replyPage);
 					replyObj.val("");
 					replytextObj.val("");
-
 				}
 				console.log("end ajax......................");
 			}
 		});
-
 	});
-
 	$(".timeline").on("click", ".replyLi", function(event) {
-
 		var reply = $(this);
 		/* 		console.dir("reply........",reply);
 		 console.log("dir..........",reply.parent("dir").parent("dir"));
 		
 		 */
-
 		$("#replytext").val(reply.find('.timeline-body').text());
 		$("#replyer").val(reply.find('.timeline-replyer').text());
-
 		$(".modal-title").html(reply.attr("data-rno"));
-
 		//$(".modifyModal").show('slow');
-
 		console.log("...........modifyModal click........")
 		console.log(this)
-
 	});
-
 	$(".timeline")
 			.on(
 					"click",
 					".modShowBtn",
 					function(event) {
-
 						var reply = $(this);
 						/* 		console.dir("reply........",reply);
 						 console.log("dir..........",reply.parent("dir").parent("dir"));
 						
 						 */
-
 						$("#replytext")
 								.val(reply.find('.timeline-body').text());
 						$("#replyer").val(
 								reply.find('.timeline-replyer').text());
-
 						$(".modal-title").html(reply.attr("data-rno"));
-
 						$(".modifyModal").show('slow');
-
 						console
 								.log("...........custom ..............modifyModal click........")
 						console.log(this)
-
 					});
-
 	var modal = $(".modifyModal");
 	var modalInputReply = modal.find("input[name='reply']");
 	var modalInputReplyer = modal.find("input[name='replyer']");
 	var modalInputReplyDate = modal.find("input[name='replyDate']");
-
 	var modalModBtn = $("#modalModBtn");
 	var modalRemoveBtn = $("#modalRemoveBtn");
 	var modalcloseBtn = $("#modalcloseBtn");
-
 	$(".modalModBtn").on("click", function(e) {
-
 		var rno = $(".modal-title").html();
 		var replytext = $("#replytext").val();
-
 		$.ajax({
 			type : 'put',
 			url : '/replies/' + rno,
@@ -504,20 +473,15 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 			}
 		});
 	});
-
 	/* modalRegisterBtn.show();
 	
 	$(".replymod").modal("show"); */
-
 	$("#ModalCloseBtn").click(function() {
 		$(".modifyModal").hide('slow');
 	});
-
 	$(".modalRemoveBtn").on("click", function() {
-
 		var rno = $(".modal-title").html();
 		var replytext = $("#replytext").val();
-
 		$.ajax({
 			type : 'delete',
 			url : '/replies/' + rno,
@@ -531,62 +495,71 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 				if (result == 'SUCCESS') {
 					alert("삭제되었습니다.");
 					getPage("/replies/" + bno + "/" + replyPage);
-
 				}
 			}
 		});
 	});
-
-	var bno = ${boardVO.bno};
-	var template = Handlebars.compile($("#templateAttach").html());
-
-	$.getJSON("/sboard/getAttach/" + bno, function(list) {
-		$(list).each(function() {
-
-			var fileInfo = getFileInfo(this);
-			var html = template(fileInfo);
-			
-			$(".uploadedList").append(html);
-
-		});
-	});
-
-	$(".uploadedList").on("click", ".mailbox-attachment-info a",
-			function(event) {
-
-				var fileLink = $(this).attr("href");
-
-				if (checkImageType(fileLink)) {
-
-					event.preventDefault();
-
-					var imgTag = $("#popup_img");
-					imgTag.attr("src", fileLink);
-
-					console.log(imgTag.attr("src"));
-
-					$("#.popup_img").show('slow');
-					imgTag.addClass("show");
-				}
-
-			});
-
-	$("#popup_img").on("click", function() {
-		$(".popup").hide('slow');
-
-	});
 	
-</script>
 
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
 <script id="templateAttach" type="text/x-handlebars-template">
 
 <li data-src='{{fullName}}'>
 <span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
 <div class="mailbox-attachments-info">
 <a href="{{getLink}}" class="mailbox-attachments-name">{{fileName}}</a>
+</span>
 </div>
 </li>
 </script>
+
+<script>
+
+var bno = ${boardVO.bno};
+var template = Handlebars.compile($("#templateAttach").html());
+
+$.getJSON("/sboard/getAttach/"+bno, function(list) {
+	$(list).each(function() {
+		
+		var fileInfo = getFileInfo(this);
+		var html = template(fileInfo);
+		
+		$(".uploadedList").append(html);
+		
+		
+	});
+	
+});
+
+$(".uploadedList").on("click",  "a" , function(event) {
+	event.preventDefault();
+	console.log("clicked");
+	var fileLink = $(this).attr("href");
+	
+			if (checkImageType(fileLink)) {
+				
+				
+				
+				var imgTag = $("#popup_img");
+				imgTag.attr("src", fileLink);
+				
+				console.log("test",imgTag.attr("src"));
+				
+				$(".popup").show('slow');
+				imgTag.addClass("show");
+			}
+		});
+$("#popup_img").on("click", function() {
+	$(".popup").hide('slow');
+});
+
+
+
+
+
+</script>
+
 
 
 <script type="text/javascript" src="/resources/js/upload.js"></script>

@@ -8,7 +8,7 @@ import java.net.URLEncoder;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import lombok.Data;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

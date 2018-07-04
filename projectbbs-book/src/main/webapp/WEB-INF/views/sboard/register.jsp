@@ -5,11 +5,39 @@
 <%@ include file="../includes/header.jsp"%>
 
 
+<style>
+.fileDrop {
+	width: 100%;
+	height: 200px;
+	border: solid 2px;
+	background-color: #5E5A5A;
+	margin: auto;
+	padding:0.75rem 1rem;
+	display: inline-block;
+	
+}
+
+
+li{
+
+display : inline-block;
+
+}
+
+.box-footer{
+width: 100%;
+
+}
+
+
+
+</style>
+
 
 <!-- Form -->
 <h2>Form</h2>
 
-<form method="post" action="#" class="alt">
+<form method="post" action="#" class="alt" id="registerForm">
 	<div class="row uniform">
 		<div class="12u 12u$(xsmall)">
 			<input type="text" name="title" id="title" value=""
@@ -31,59 +59,30 @@
 
 
 			<div class="form-group" style="width:100%">
-				<label for="exampleInputEmail1"><h3>File DROP Here▼</h3></label>
+				<label for="fileDrop"><h3>File DROP Here▼</h3></label>
 			<div class="fileDrop" id="fileDrop"></div>
 		</div>
 		</div>
 
 		<div class="box-footer" >
 				<hr>
-				<label for="uploadedlist"><h3>UPLOADED LIST▼</h3></label>
-			<div class="uploadedlist" id="uploadedlist"></div>
-		
+				 <label for="uploadedlist"><h3>UPLOADED LIST▼</h3></label> 
+			 <div class="uploadedlistdiv" id="uploadedlistdiv"></div> 
 		<ul class="mailbox-attachments clearfix uploadedList" style="list-style-type : none">
 		</ul>
+			
 				<hr>
 		
-		 		<div class="12u$" align="right">
+		 		<div class="rgstbtns" align="right">
 			<ul class="actions">
-				<li><input type="submit" value="Send Message" class="send" id="send" /></li>
+				<li><button type="submit" value="Send Message" class="send" id="send">SUBMIT</button></li>
 				<li><a class="button" href="/board/listPage">BACK</a></li>
 			</ul> 
 			</div>
 		</div>
 </form>
 
-<style>
-.fileDrop {
-	width: 100%;
-	height: 200px;
-	border: solid 2px;
-	background-color: #5E5A5A;
-	margin: auto;
-	padding:0.75rem 1rem;
-	display: inline-block;
-	
-}
-
-li{
-
-display : inline-block;
-
-}
-
-.box-footer{
-width: 100%;
-
-
-}
-
-
-
-</style>
-
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
 
 
 	<script id="template" type="text/x-handlebars-template">
@@ -102,8 +101,7 @@ var template = Handlebars.compile($("#template").html());
 
 $(".fileDrop").on("dragenter dragover", function(event) {
 	 event.preventDefault();
-	 console.log(event);
-	
+	 /* console.log(event); */
 	
 });
 
@@ -111,7 +109,7 @@ $(".fileDrop").on("drop", function(event) {
 	event.preventDefault();
 	
 	var files = event.originalEvent.dataTransfer.files;
-	
+	console.dir(files);
 	var file = files[0];
 	
 	var formData = new FormData();
@@ -129,33 +127,37 @@ $(".fileDrop").on("drop", function(event) {
 			var fileInfo = getFileInfo(data);
 			var html = template(fileInfo);
 			
-			$(".uploadedList").append(html);
+			console.log("fileinfo................."+fileInfo);
 			
+			
+			$(".uploadedList").append(html);
+			console.log("Html.............."+html);
 		}
 	
 		
 	});
 	
-	$("#send").submit(function(event) {
-		event.preventDefault();
-		
-		var that = $(this);
-		var str = "";
-		
-		$(".uploadList .delbtn").each(function(index) {
-			str+= "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("href")+"'>";
-			
-		});
-		that.append(str);
-		that.get(0).submit();
-		
-	});
+});
 	
-	
-	
+    $("#registerForm").submit(function (event) {
+        event.preventDefault();
+		
+        var that = $(this);
+        var str = "";
+        console.dir($(".uploadedList"));
+        $(".uploadedList .delbtn").each(function (index) {
+            str += "<input type='hidden' name='files[" + index + "]' value='" + $(this).attr("href") + "'> ";
+        });
+        
+        that.append(str);
+        console.log(str);
+        that.get(0).submit();
+
 });
 
 
+    
+  
 </script>
 
 

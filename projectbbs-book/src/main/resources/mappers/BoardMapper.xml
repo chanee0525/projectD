@@ -32,8 +32,20 @@
 	
 	<select id="getAttach" resultType="string">
 	select fullname from tbl_attach where bno = #{bno} order by regdate
-	
 	</select>
+	
+	<delete id="deleteAttach">
+	delete from tbl_attach where bno = #{bno}
+	</delete>
+	
+	<insert id="replaceAttach">
+	insert into tbl_attach(fullname, bno) values (#{fullName}, #{bno})
+	</insert>
+	
+	<update id="updateReplyCnt">
+	update tbl_board set replycnt = replycnt + #{amount} where bno = #{bno}
+	
+	</update>
 	
 
 	
