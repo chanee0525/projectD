@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
 <%@ include file="../includes/header.jsp"%>
 
 
@@ -65,12 +65,19 @@ width: 100%;
 
 }
 
-li{
+#uploadedList{
 
 display : inline-block;
+list-style-type: none;
 
 }
+
+/* .timeline{
+list-style-type: none;
+} */
 </style>
+
+
 
 
 
@@ -113,7 +120,7 @@ display : inline-block;
 		<label for="uploadedlist"><h3>UPLOADED LIST▼</h3></label>
 		<div class="uploadedlist" id="uploadedlist"></div>
 
-		<ul class="mailbox-attachments clearfix uploadedList" id="uploadedList" style="list-style-type: none">
+		<ul class="mailbox-attachments clearfix uploadedList" id="uploadedList">
 		</ul>
 		<hr>
 	</div>
@@ -144,7 +151,7 @@ display : inline-block;
 
 	</form>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+
 	<script id="template" type="text/x-handlebars-template">
 
 
@@ -502,7 +509,7 @@ display : inline-block;
 	
 
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+
 <script id="templateAttach" type="text/x-handlebars-template">
 
 <li data-src='{{fullName}}'>

@@ -24,16 +24,13 @@
 </ul>
 	</nav>
 
-<!-- Main -->
-<div id="main">
+<title>HOME</title>
+<body>
+<h1>RUN AWAY!</h1>
+<h2>${result }</h2>
+</body>
 
-	<!-- Introduction -->
-	<section id="intro" class="main">
-	<div class="spotlight">
-		<div class="content">
 
-			</ul>
-	</section>
 
 <%@ include file="includes/footer.jsp"%>
 

@@ -2,7 +2,7 @@
 <%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<script type="text/javascript" src="/resources/js/upload.js"></script>
 
 <%@ include file="../includes/header.jsp"%>
 
@@ -52,7 +52,8 @@ width: 100%;
 
 
 	
-	<h2>LETTER NO.${boardVO.bno}</h2>
+		<h2>HELLO, STRANGER<br>
+	> LETTER NO.${boardVO.bno}</h2>
 
 </form>
 	<form method="post" action="#" class="alt" id="registerForm">
@@ -76,7 +77,7 @@ width: 100%;
 				<hr>
 				 <label for="uploadedlist"><h3>UPLOADED LIST▼</h3></label> 
 			 <div class="uploadedlistdiv" id="uploadedlistdiv"></div> 
-		<ul class="mailbox-attachments clearfix uploadedList" style="list-style-type : none">
+		<ul class="mailbox-attachments clearfix uploadedList" id="uploadedList" >
 		</ul>
 			
 				<hr>
@@ -176,7 +177,30 @@ $(".fileDrop").on("drop", function(event) {
         that.get(0).submit();
 
 });
-
+    
+    
+$(".uploadedList").on("click", "#uploadedList", function(event) {
+	
+	event.preventDefault();	
+	
+	console.log(event);
+	
+		var that = $(this);
+	
+		$.ajax({
+			
+			url:"deleteAllFiles",
+			type:"post",
+			data: {fileName:$(this).attr("String[] files")},
+			dataType:"text",
+			success:function(result){
+				if(result=='deleted'){
+						that.parent("li").remove();
+					}
+				}
+		});
+		
+	});
 
     
   
@@ -215,5 +239,5 @@ $(".fileDrop").on("drop", function(event) {
 
 
 
-<script type="text/javascript" src="/resources/js/upload.js"></script>
+
 <%@ include file="../includes/footer.jsp"%>

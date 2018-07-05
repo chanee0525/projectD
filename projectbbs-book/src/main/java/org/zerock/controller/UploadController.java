@@ -152,7 +152,7 @@ public class UploadController {
 			
 		new File(uploadPath+fileName.replace('/', File.separatorChar)).delete();
 		return new ResponseEntity<String>("deleted",HttpStatus.OK);
-		
+			
 	}
 
 	@ResponseBody

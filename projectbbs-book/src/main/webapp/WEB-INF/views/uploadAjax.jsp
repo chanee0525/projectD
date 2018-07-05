@@ -9,6 +9,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+
 	<style>
 .fileDrop {
 	width: 100%;

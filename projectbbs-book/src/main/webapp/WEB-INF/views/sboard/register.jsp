@@ -35,7 +35,10 @@ width: 100%;
 
 
 <!-- Form -->
-<h2>Form</h2>
+<h2>FROM YOUR UNIVERSE<br>
+> SEND LETTER</h2>
+
+
 
 <form method="post" action="#" class="alt" id="registerForm">
 	<div class="row uniform">
@@ -90,7 +93,7 @@ width: 100%;
 <span class="mailbox-attachments-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
 <div class="mailbox-attachments-info">
 <a href="{{getLink}}" class="mailbox-attachments-name">{{fileName}}</a>
-<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn"><i class="fa fa-fw fa-remove"></i></a>
+<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn" id="filedelbtn"><i class="fa fa-fw fa-remove"></i></a>
 </div>
 </li>
 </script>
@@ -155,9 +158,35 @@ $(".fileDrop").on("drop", function(event) {
 
 });
 
+    $("#uploadedList").on("click", "fa fa-fw fa-remove", function (event) {
+    	
+    	event.preventDefault();
+    	console.log("click.................."+event);
+    	
+    	
+    	
+    	var that = $(this);
+    	
+    	$.ajax ({
+    		
+    		url:"deleteFile",
+    		type: "post",
+    		data: {fileName:$(this).attr("data-src")},
+    		dataType:"text",
+    		success: function(result) {
+    			if(result == 'deleted'){
+    				that.parent("li").remove();
+    			}
+				
+			}
+    		
+    	});
 
-    
+
+    });
   
+    
+   
 </script>
 
 
