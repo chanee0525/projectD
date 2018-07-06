@@ -9,7 +9,7 @@ import lombok.Data;
 public class BoardVO {
 	
 	private Integer bno;
-	private String title, content;
+	private String title, writer, content;
 	private Date regdate, updatedate;
 	private int viewcnt, replycnt;
 	private String[] files;

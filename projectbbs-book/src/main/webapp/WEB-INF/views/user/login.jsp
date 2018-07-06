@@ -19,31 +19,38 @@
 <h2>
 	HELLO, STRANGER<br> > LOGIN
 </h2>
-<form action = "/user/loginPost" method = "post" style="width:100%">
-	
-	<div class = "loginform" style="width:100%; text-align:center;">
-		
-		<div class="idform" style="width:100%">
-		<h3 style="display:inline;">ID</h3>
-		<input type="text" name="uid" id="uid" class="uidform" id="uidform" placeholder="USER ID" style="width:250px; display:inline;"  >
+<form action="/user/loginPost" method="post" style="width: 100%">
+
+	<div class="loginform" style="width: 100%; text-align: center;">
+
+		<div class="idform" style="width: 100%">
+			<h3 style="display: inline;">ID</h3>
+			<input type="text" name="uid" id="uid" class="uidform" id="uidform"
+				style="width: 250px; display: inline;">
 		</div>
-		
-		<div class="pwform"style="width:100%">
-		<h3 style="display:inline;">PW</h3>
-		<input type="text" name="upw" id="upw" class="upwform" id="upwform" placeholder="PASSWORD" style="width:250px; display:inline; " >
-		
+
+		<div class="pwform" style="width: 100%">
+			<h3 style="display: inline;">PW</h3>
+			<input type="text" name="upw" id="upw" class="upwform" id="upwform"
+				style="width: 250px; display: inline;">
+
 		</div>
-		
+
 		<br>
-		
-		<button type="submit" class="sign" id="sign">SIGN IN</button>
-		<button type="submit" class="login" id="login">LOGIN</button>
-		
-		
+
+
+		<div class="loginfooter">
+			<div class="loginfooterdiv">
+				<input type="checkbox" id="checkbox" name="useCookie"> <label
+					for="checkbox">REMEMBER ME</label>
+
+			</div>
+					<div class="btns">
+					<button type="submit" class="login" id="login">LOGIN</button>
+				</div>
+		</div>
 	</div>
-	
-	
 </form>
 <%@ include file="../includes/footer.jsp"%>
 
-	
+

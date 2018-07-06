@@ -41,7 +41,7 @@ public class HomeController {
 		public void ajaxTest() {
 	}
 	
-	@RequestMapping(value="/doA", method = RequestMethod.GET)
+/*	@RequestMapping(value="/doA", method = RequestMethod.GET)
 	public String doA(Locale locale, Model model) {
 		
 		System.out.println("doA............................");
@@ -57,7 +57,7 @@ public class HomeController {
 		model.addAttribute("result", "doB result.................");
 		
 	return "home";
-	}
+	}*/
 	
 }
 

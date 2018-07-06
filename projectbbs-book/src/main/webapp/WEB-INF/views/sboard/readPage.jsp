@@ -98,6 +98,12 @@ list-style-type: none;
 </form>
 
 <div class="row uniform">
+		
+		<div class="writer">
+			<input type="hidden" name="writer" id="writer" class="writer" value='${login.uid }' readOnly />
+		</div>
+	
+
 	<div class="12u 12u$(medium)">
 		<input type="text" id="demo-name" value="${boardVO.title}"
 			readonly="readonly" />
@@ -127,11 +133,13 @@ list-style-type: none;
 
 
 	<!-- Break -->
-	<div class="12u$">
+	<div align="right" class="12u$">
 		<ul class="actions">
+		<c:if test="${login.uid == boardVO.writer }">
 			<li><input type="submit" value="MODIFY" class="modify" /></li>
-			<li><input type="submit" value="LIST" class="list" /></li>
 			<li><input type="submit" value="REMOVE" class="remove" /></li>
+			</c:if>
+			<li><input type="submit" value="LIST" class="list" /></li>
 		</ul>
 	</div>
 
@@ -140,9 +148,10 @@ list-style-type: none;
 
 
 
-	<ul class="timeline">
+	<ul class="timeline" style="list-style-type: none;">
 		<li class="time-lable" id="repliesDiv"><span class="bg-green">
-				Replies List <small id='replycntSmall'>[${boardVO.replycnt}]</small>
+				CLICK HERE! > <br> 
+				REPLIES LIST <small id='replycntSmall'>[${boardVO.replycnt}]</small>
 		</span></li>
 	</ul>
 
@@ -155,7 +164,7 @@ list-style-type: none;
 	<script id="template" type="text/x-handlebars-template">
 
 
-{{#each .}}
+{{#each .}} 
 <li class="replyLi" data-rno={{rno}}>
 <i class="fa fa-comments bg-blue"></i>
 <div class="timeline-item">
@@ -166,7 +175,9 @@ list-style-type: none;
 <div class="timeline-replyer"><h4>{{replyer}}</h4></div>
 <div class="timeline-body">{{replytext}}</div>
 <div class="timeline-footer">
+{{#eqReplyer replyer}}
 <a class="6u 12u$(small) modShowBtn" data-toggle="modal" data-target=".modifyModal" id="ReplylistModBtn">MODIFY</a>
+{{/eqReplyer}}
 </div>
 </div>
 </li>
@@ -181,18 +192,31 @@ list-style-type: none;
 				<div class="box-header">
 					<h3 class="box-title">ADD REPLY</h3>
 				</div>
+				<c:if test="${not empty login }">
 				<div class="box-body">
 					<label for="newReplyWriter">writer</label> <input
-						class="form-control" type="text" placeholder="USER ID"
-						id="newReplyWriter"> <label for="newReplyText">ReplyText</label>
+						class="form-control" type="text" value='${login.uid }'
+						id="newReplyWriter" readonly="readonly"> <label for="newReplyText">ReplyText</label>
 					<input class="form-control" type="text" placeholder="reply Text"
 						id="newReplyText">
 				</div>
-
+				
+				
 				<div align="right" class="box-footer">
 					<button type="submit" class="btn btn-primary" id="replyAddBtn">ADD
 						REPLY</button>
 				</div>
+				</c:if>
+				<c:if test="${empty login }">
+				
+				<div class=box-body">
+				<div>
+				<div><a href="javascript:goLogin();">LOGIN PLEASE</a></div>
+				</div>
+				
+				</div>
+				
+				</c:if>
 
 			</div>
 		</div>
@@ -332,6 +356,15 @@ list-style-type: none;
 		var month = dateObj.getMonth() + 1;
 		var date = dateObj.getDate();
 		return year + "/" + month + "/" + date;
+	});
+	
+	Handlebars.registerHelper("eqReplyer", function(replyer, block) {
+		var accum = '';
+		if(replyer == '${login.uid}'){
+			accum += block.fn();
+		}
+		return accum;
+		
 	});
 	var printData = function(replyArr, target, templateObject) {
 		var template = Handlebars.compile(templateObject.html());

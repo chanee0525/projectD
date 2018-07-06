@@ -11,4 +11,12 @@ select uid, upw, uname from tbl_user where uid = #{uid} and upw = #{upw}
 
 </select>
 
+<update id="keepLogin">
+update tbl_user set sessionkey = #{sessionId}, sessionLimit = #{next} where uid = #{uid}
+</update>
+
+<select id="checkUserWithSessionkey" resultType="UserVO">
+select * from tbl_user where sessionkey = #{value} and sessionlimit > current_timestamp()
+</select>
+
 </mapper>

@@ -11,4 +11,4 @@
 self.location = "/sboard/list";
 </script>
 </body>
-</html>
+</html> 

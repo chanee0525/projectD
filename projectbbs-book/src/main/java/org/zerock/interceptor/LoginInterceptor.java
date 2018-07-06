@@ -3,6 +3,7 @@ package org.zerock.interceptor;
 
 
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.mysql.jdbc.log.Log;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 	
@@ -24,6 +27,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			ModelAndView modelAndView) throws Exception {
 		
 		HttpSession session = request.getSession();
+		
 		ModelMap modelMap = modelAndView.getModelMap();
 		Object userVO = modelMap.get("userVO");
 		
@@ -31,7 +35,23 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			
 			logger.info("new login success");
 			session.setAttribute(LOGIN, userVO);
-			response.sendRedirect("/");
+			
+			
+			if(request.getParameter("useCookie") != null) {
+				
+				logger.info("remember me.................");
+				Cookie loginCookie = new Cookie("loginCookie", session.getId());
+				loginCookie.setPath("/");
+				loginCookie.setMaxAge(60*60*24*7); // 일주일간 유지
+				response.addCookie(loginCookie);
+				
+			}
+			
+			//response.sendRedirect("/");
+			Object dest = session.getAttribute("dest");
+			response.sendRedirect(dest != null ? (String)dest:"/"); //dest에 저장된 경로로 리다이렉트
+			
+			logger.info("logininterceptor..................................");
 			
 		}
 		

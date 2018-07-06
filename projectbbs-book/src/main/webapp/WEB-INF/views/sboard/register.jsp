@@ -41,9 +41,18 @@ width: 100%;
 
 
 <form method="post" action="#" class="alt" id="registerForm">
+	
+	
+
+		<div class="writer">
+			<input type="hidden" name="writer" id="writer" class="writer" value='${login.uid }' readOnly />
+		</div>
+	
+	
+	
 	<div class="row uniform">
 		<div class="12u 12u$(xsmall)">
-			<input type="text" name="title" id="title" value=""
+			<input type="text" name="title" id="title"
 				placeholder="Title" />
 		</div>
 
@@ -91,9 +100,9 @@ width: 100%;
 	<script id="template" type="text/x-handlebars-template">
 <li>
 <span class="mailbox-attachments-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
-<div class="mailbox-attachments-info">
-<a href="{{getLink}}" class="mailbox-attachments-name">{{fileName}}</a>
-<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn" id="filedelbtn"><i class="fa fa-fw fa-remove"></i></a>
+<div class="filenamediv">
+<a href="{{getLink}}" class="getLink">{{fileName}}</a>
+<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn" id="filedelbtn"><i class="fa fa-fw fa-remove id="removebtn"></i></a>
 </div>
 </li>
 </script>
@@ -157,10 +166,13 @@ $(".fileDrop").on("drop", function(event) {
         that.get(0).submit();
 
 });
+    
 
-    $("#uploadedList").on("click", "fa fa-fw fa-remove", function (event) {
+
+     $("#uploadedList").on("click", ".btn btn-default btn-xs pull-right delbtn", function (event) {
     	
     	event.preventDefault();
+    	event.propagation();
     	console.log("click.................."+event);
     	
     	
@@ -171,7 +183,7 @@ $(".fileDrop").on("drop", function(event) {
     		
     		url:"deleteFile",
     		type: "post",
-    		data: {fileName:$(this).attr("data-src")},
+    		data: {fileName:$(this).attr("href")},
     		dataType:"text",
     		success: function(result) {
     			if(result == 'deleted'){
@@ -180,12 +192,11 @@ $(".fileDrop").on("drop", function(event) {
 				
 			}
     		
-    	});
-
-
-    });
+    	}); 
+    	
+     
+     });
   
-    
    
 </script>
 

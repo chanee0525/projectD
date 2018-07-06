@@ -7,13 +7,13 @@
 
 
 	<insert id="create">
-		insert into tbl_board (title, content) values
-		(#{title},#{content})
+		insert into tbl_board (title, content, writer) values
+		(#{title},#{content},#{writer})
 	</insert>
 
 	<select id="read" resultType="org.zerock.domain.BoardVO">
 		select
-		bno, title, content, regdate,
+		bno, title, writer, content, regdate,
 		updatedate, viewcnt, replycnt 
 		from
 		tbl_board
@@ -61,7 +61,7 @@
 	<select id="listAll" resultType="org.zerock.domain.BoardVO">
 <![CDATA[
 select 
-bno, title, content, regdate, viewcnt
+bno, title, content, writer, regdate, viewcnt
 from
 tbl_board
 where bno > 0
