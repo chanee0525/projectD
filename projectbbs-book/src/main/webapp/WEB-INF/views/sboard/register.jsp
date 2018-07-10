@@ -102,10 +102,11 @@ width: 100%;
 <span class="mailbox-attachments-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
 <div class="filenamediv">
 <a href="{{getLink}}" class="getLink">{{fileName}}</a>
-<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn" id="filedelbtn"><i class="fa fa-fw fa-remove id="removebtn"></i></a>
+<a class="btn btn-default btn-xs pull-right delbtn" id="filedelbtn"><i class="fa fa-fw fa-remove test" id="removebtn" data-fileName="{{fileLink}}"></i></a>
 </div>
 </li>
 </script>
+
 
 
 <script>
@@ -169,21 +170,19 @@ $(".fileDrop").on("drop", function(event) {
     
 
 
-     $("#uploadedList").on("click", ".btn btn-default btn-xs pull-right delbtn", function (event) {
-    	
-    	event.preventDefault();
-    	event.propagation();
+     $(".uploadedList").on("click", ".test", function (event) {
+  
     	console.log("click.................."+event);
-    	
-    	
-    	
     	var that = $(this);
+    	console.dir(that);
+    	console.log(that.attr("data-fileName"));	
     	
     	$.ajax ({
     		
-    		url:"deleteFile",
-    		type: "post",
-    		data: {fileName:$(this).attr("href")},
+    		url:"/deleteFile",
+    		type: "POST",
+    		/* data: {"fileName":that.attr("data-src")}, */
+    		data: {"fileName":$(this).attr("data-src")},
     		dataType:"text",
     		success: function(result) {
     			if(result == 'deleted'){
@@ -194,7 +193,13 @@ $(".fileDrop").on("drop", function(event) {
     		
     	}); 
     	
-     
+ 
+    	
+    	
+    	
+    	
+    	
+    	
      });
   
    

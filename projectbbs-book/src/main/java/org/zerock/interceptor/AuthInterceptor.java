@@ -13,6 +13,8 @@ import org.springframework.web.util.WebUtils;
 import org.zerock.domain.UserVO;
 import org.zerock.service.UserService;
 
+import lombok.extern.log4j.Log4j;
+
 
 
 
@@ -42,6 +44,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			logger.info("dest:" + (uri + query));
 			req.getSession().setAttribute("dest", uri + query);
 		}
+		
+		logger.info("uri+query:" + "uri"+uri + query);
+		logger.info("auth................................");
 	}
 	
 	

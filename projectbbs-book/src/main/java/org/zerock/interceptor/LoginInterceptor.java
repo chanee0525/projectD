@@ -40,6 +40,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			if(request.getParameter("useCookie") != null) {
 				
 				logger.info("remember me.................");
+				
 				Cookie loginCookie = new Cookie("loginCookie", session.getId());
 				loginCookie.setPath("/");
 				loginCookie.setMaxAge(60*60*24*7); // 일주일간 유지
@@ -51,6 +52,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			Object dest = session.getAttribute("dest");
 			response.sendRedirect(dest != null ? (String)dest:"/"); //dest에 저장된 경로로 리다이렉트
 			
+			logger.info("dest:"+dest);
 			logger.info("logininterceptor..................................");
 			
 		}

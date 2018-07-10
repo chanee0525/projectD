@@ -27,13 +27,13 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void keeplogin(String uid, String sessionId, Date next) {
+	public void keepLogin(String uid, String sessionId, Date next) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("uid", uid);
 		paramMap.put("sessionId", sessionId);
 		paramMap.put("next", next);
 		
-		session.update(namespace+".keeplogin", paramMap);
+		session.update(namespace+".keepLogin", paramMap);
 		
 	}
 
@@ -41,6 +41,15 @@ public class UserDAOImpl implements UserDAO {
 	public UserVO checkUserWithSessionkey(String value) {
 		return session.selectOne(namespace+".checkUserWithSessionkey", value);
 	}
+
+	@Override
+	public void join(UserVO vo) throws Exception {
+		session.insert(namespace+".join",vo);
+		
+	}
+
+
+	
 	
 	
 

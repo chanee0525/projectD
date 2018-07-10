@@ -8,7 +8,8 @@ import org.zerock.dto.LoginDTO;
 public interface UserDAO {
 	
 	public UserVO login(LoginDTO dto) throws Exception;
-	public void keeplogin(String uid, String sessionId, Date next);
+	public void keepLogin(String uid, String sessionId, Date next);
 	public UserVO checkUserWithSessionkey(String value);
+	public void join(UserVO vo) throws Exception;
 
 }

@@ -89,13 +89,13 @@ $(".fileDrop").on("drop", function(event) {
 	
 	});
 	
-$(".uploadedList").on("click", "small", function(event) {
+$(".uploadedList").on("click", "fa fa-fw fa-remove", function(event) {
 		
 		var that = $(this);
 		
 		$.ajax({
 			
-			url:"deleteFile",
+			url:"/deleteFile",
 			type:"post",
 			data: {fileName:$(this).attr("data-src")},
 			dataType:"text",

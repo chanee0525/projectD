@@ -92,8 +92,9 @@ list-style-type: none;
 
 
 
-	<h2>Form</h2>
-	<h2>${boardVO.bno}</h2>
+	
+	<h2>HELLO, STRANGER<br>
+	> LETTER NO.${boardVO.bno}</h2>
 
 </form>
 
@@ -211,7 +212,7 @@ list-style-type: none;
 				
 				<div class=box-body">
 				<div>
-				<div><a href="javascript:goLogin();">LOGIN PLEASE</a></div>
+				<div><a href="/user/login">LOGIN PLEASE</a></div>
 				</div>
 				
 				</div>
@@ -248,7 +249,7 @@ list-style-type: none;
 							</div>
 							<div class="form-group">
 								<label>REPLYER</label> <input class="form-control" id="replyer"
-									name='relplyer' value='relplyer' readOnly="readOnly">
+									name='relplyer' value='${login.uid } readOnly="readOnly">
 							</div>
 						</div>
 					</div>

@@ -51,19 +51,15 @@
 			<li><a href="/board/gallery2">Gallery</a></li>
 		</ul>
 		<ul class="icons">
-			<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-			<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-			<li><a href="#" class="icon fa-instagram"><span
-					class="label">Instagram</span></a></li>
+			<li><a href="/user/login">LOGIN</a></li>
+			<li><a href="/user/logout">LOGOUT</a></li>
+		
 			<li><a href="https://github.com/chanee0525" class="icon fa-github"><span class="label">GitHub</span></a></li>
 		</ul>
 		</nav>
 
 		<!-- Main -->
 		<div id="main">
-
-
-
 
 			<script src="/resources/assets/js/jquery.min.js"></script>
 			<script src="/resources/assets/js/jquery.scrollex.min.js"></script>
