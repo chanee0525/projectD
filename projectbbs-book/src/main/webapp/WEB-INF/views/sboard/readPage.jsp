@@ -59,19 +59,13 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
 	max-height: 800px;
 	overflow: auto;
 }
-
 .box-footer{
 width: 100%;
-
 }
-
 #uploadedList{
-
 display : inline-block;
 list-style-type: none;
-
 }
-
 /* .timeline{
 list-style-type: none;
 } */
@@ -218,22 +212,15 @@ list-style-type: none;
 				</div>
 				
 				</c:if>
-
 			</div>
 		</div>
-
 	</div>
-
-
-
 	<!-- modal -->
-
 	<div class="modifyModal" style="width: 100%" id="myModal">
 		<div class="col-md-12" style="width: 100%">
 			<div class="box box-success">
 				<div class="modal fade" tabindex="-1" role="dialog"
 					area-labelledby="myModalLabel" aria-hidden="true">
-
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div align="right" class="modal-header">
@@ -246,15 +233,16 @@ list-style-type: none;
 							<div class="form-group">
 								<label>REPLY</label> <input class="form-control" id="replytext"
 									name='relply' value='new reply' style="width: 100%">
+									</div>
 							</div>
 							<div class="form-group">
 								<label>REPLYER</label> <input class="form-control" id="replyer"
 									name='relplyer' value='${login.uid } readOnly="readOnly">
 							</div>
 						</div>
+						</div>
 					</div>
 				</div>
-
 				<div align="right" class="modal-footer">
 					<button id='modalModBtn' type="button" class="modalModBtn"
 						id="replyModBtn">MODIFY</button>
@@ -269,36 +257,10 @@ list-style-type: none;
 	</div>
 </div>
 
-
-
-
-
-
-<!-- 			<div class="row" style="width: 100%">
-				<div class="replyMod" style="width: 100%">
-					<div class="box box-success">
-						<div class="box-header">
-							<h3 class="box-title">MODIFY REPLY</h3>
-						</div>
-						<div class="box-body" data-rno>
-							<label for="ModReplyText">MODIFY</label> <input
-								class="form-control" type="text" placeholder="reply Text"
-								id="newReplyText">
-						</div>
-						<div align="right" class="box-footer">
-							<button type="submit" class="btn btn-primary" id="replyModBtn">Mod
-								REPLY</button>
-							<button type="submit" class="btn btn-primary" id="replyDelBtn">Del
-								REPLY</button>
-							<button type="submit" class="btn btn-primary" id="replyDelBtn">Close</button>
-						</div>
-						</div>
-	
-	 -->
-
-
 <script type="text/javascript">
 	$(document).ready(function() {
+	
+	
 		var formObj = $("form[role='form']");
 		console.log(formObj);
 		$("input[type='submit']").on("click", function(e) {
@@ -556,10 +518,8 @@ list-style-type: none;
 </script>
 
 <script>
-
 var bno = ${boardVO.bno};
 var template = Handlebars.compile($("#templateAttach").html());
-
 $.getJSON("/sboard/getAttach/"+bno, function(list) {
 	$(list).each(function() {
 		
@@ -572,7 +532,6 @@ $.getJSON("/sboard/getAttach/"+bno, function(list) {
 	});
 	
 });
-
 $(".uploadedList").on("click",  "a" , function(event) {
 	event.preventDefault();
 	console.log("clicked");
@@ -594,11 +553,6 @@ $(".uploadedList").on("click",  "a" , function(event) {
 $("#popup_img").on("click", function() {
 	$(".popup").hide('slow');
 });
-
-
-
-
-
 </script>
 
 

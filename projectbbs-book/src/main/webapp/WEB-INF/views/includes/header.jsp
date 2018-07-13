@@ -37,7 +37,7 @@
 					class="button icon solo fa-arrow-down scrolly">Continue</a></li>
 			</ul>
 		</div>
-
+</div>
 		<!-- Header -->
 		<header id="header"> <a href="/sboard/list" class="logo">HELLO
 			<br /> STRANGER
@@ -67,5 +67,4 @@
 			<script src="/resources/assets/js/skel.min.js"></script>
 			<script src="/resources/assets/js/util.js"></script>
 			<script src="/resources/assets/js/main.js"></script>
-			
 			

@@ -93,7 +93,7 @@ public class UserController {
 		}
 		return "user/logout";
 	}
-/*	
+	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public void registerGet(UserVO vo, Model model) throws Exception {
 
@@ -114,7 +114,7 @@ public class UserController {
 		
 
 	}
-*/
+
 	
 
 }
