@@ -155,5 +155,8 @@ public class BoardController {
 
 		log.info("gallery get..........");
 	}
+	
+
+
 
 }

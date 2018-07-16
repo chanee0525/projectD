@@ -1,6 +1,8 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!--
 	Massively by HTML5 UP
@@ -37,7 +39,7 @@
 					class="button icon solo fa-arrow-down scrolly">Continue</a></li>
 			</ul>
 		</div>
-</div>
+
 		<!-- Header -->
 		<header id="header"> <a href="/sboard/list" class="logo">HELLO
 			<br /> STRANGER

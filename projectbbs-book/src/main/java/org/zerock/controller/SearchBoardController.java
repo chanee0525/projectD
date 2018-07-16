@@ -133,7 +133,11 @@ public class SearchBoardController {
 		return service.getAttach(bno);
 	}
 	
-	
+	@RequestMapping(value = "/gallery", method = RequestMethod.GET)
+	public void registerGet() throws Exception {
+
+		log.info("sboard gallery get..........");
+	}
 
 
 	
