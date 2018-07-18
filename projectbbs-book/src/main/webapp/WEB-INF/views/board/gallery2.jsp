@@ -181,7 +181,7 @@ body { .
 					GALLERY<br /> UNIVERSE
 				</h1>
 				
-			<div class="pic" height="1000px"s>
+			<div class="pic" height="1000px">
 				<div class="gallery_content">
 					<img src="/resources/img/1.jpg" alt="1.jpg">
 					<div class="content">

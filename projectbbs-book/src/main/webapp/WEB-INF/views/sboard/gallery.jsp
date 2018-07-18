@@ -4,34 +4,13 @@
 <%@ include file="../includes/header.jsp"%>
 
 
+
 <body>
 
-	<style>
-div.gallery {
-	margin: 5px;
-	border: 1px solid #ccc;
-	float: left;
-	width: 180px;
-}
-
-div.gallery:hover {
-	border: 1px solid #777;
-}
-
-div.gallery img {
-	width: 100%;
-	height: auto;
-}
-
-div.desc {
-	padding: 15px;
-	text-align: center;
-}
-</style>
 
 
 
-	<div id="main">
+	<div id="gallery-main">
 
 		<!-- Post -->
 		<section class="post">
@@ -40,63 +19,77 @@ div.desc {
 				<h1>
 					GALLERY<br /> UNIVERSE
 				</h1>
-				<div class="images">
-					<div class="gallery">
+				
 
-						<a target="_blank" href="fjords.jpg"> <img
-							src="/resources/img/1.jpg" alt="Fjords" width="300" height="200">
-
-						</a>
-
-						<div class="desc">Add a description of the image here</div>
-
+				
+			<div class="pic">
+				<div class="gallery_content">
+					<img src="/resources/img/1.jpg" alt="1.jpg">
+					<div class="content">
+	
 					</div>
-
-
-
-					<div class="gallery">
-
-						<a target="_blank" href="forest.jpg"> <img
-							src="/resources/img/2.jpg" alt="Forest" width="300" height="200">
-
-						</a>
-
-						<div class="desc">Add a description of the image here</div>
-
-					</div>
-
-
-
-					<div class="gallery">
-
-						<a target="_blank" href="lights.jpg"> <img
-							src="/resources/img/3.jpg" alt="Northern Lights" width="300"
-							height="200">
-
-						</a>
-
-						<div class="desc">Add a description of the image here</div>
-
-					</div>
-
-
-
-					<div class="gallery">
-
-						<a target="_blank" href="mountains.jpg"> <img
-							src="/resources/img/4.jpg" alt="Mountains" width="300"
-							height="200">
-
-						</a>
-
-						<div class="desc">Add a description of the image here</div>
-
-					</div>
+					<div class="overlay darkBlue"></div>
 				</div>
+				<div class="gallery_content top">
+					<img src="/resources/img/2.jpg" alt="2.jpg">
+					<div class="content">
+	
+					</div>
+					
+				</div>
+				<div class="gallery_content">
+					<img src="/resources/img/3.jpg" alt="3.jpg">
+					<div class="content">
+	
+					</div>
+					
+				</div>
+				
+				<div class="gallery_content">
+					<img src="/resources/img/4.jpg" alt="4.jpg">
+					<div class="content">
+	
+					</div>
+					
+				</div>
+				
+				<div class="gallery_content">
+					<img src="/resources/img/5.jpg" alt="5.jpg">
+					<div class="content">
+	
+					</div>
+					
+				</div>
+				
+				<div class="gallery_content">
+					<img src="/resources/img/6.jpg" alt="6.jpg">
+					<div class="content">
+	
+					</div>
+					
+				</div>
+				
+					</header>
+					
+					
+								
+					
+					
+					
+					
+					
+					
+						
 
-			</header>
+				
+			
 		</section>
-	</div>
+	
+		
+		
+			
+	
+		
 </body>
 </html>
 <%@ include file="../includes/footer.jsp"%>
