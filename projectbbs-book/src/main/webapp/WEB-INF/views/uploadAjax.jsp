@@ -17,7 +17,6 @@
 	height: 200px;
 	border: 1px dotted blue;
 }
-
 small {
 	margin-left: 3px;
 	font-weight: 200px;
@@ -30,7 +29,9 @@ small {
 
 	<div class='uploadedList'></div>
 
-	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+		crossorigin="anonymous"></script>
 
 	<script type="text/javascript">
 $(".fileDrop").on("dragenter dragover", function(event) {
@@ -38,11 +39,8 @@ $(".fileDrop").on("dragenter dragover", function(event) {
 	
 	var files = event.originalEvent.dataTransfer.files;
 	var file=files[0];
-
 	
 });
-
-
 $(".fileDrop").on("drop", function(event) {
 	event.preventDefault();
 	
@@ -87,13 +85,13 @@ $(".fileDrop").on("drop", function(event) {
 	
 	});
 	
-$(".uploadedList").on("click", "fa fa-fw fa-remove", function(event) {
+$(".uploadedList").on("click", "small", function(event) {
 		
 		var that = $(this);
 		
 		$.ajax({
 			
-			url:"/deleteFile",
+			url:"deleteFile",
 			type:"post",
 			data: {fileName:$(this).attr("data-src")},
 			dataType:"text",
@@ -107,14 +105,11 @@ $(".uploadedList").on("click", "fa fa-fw fa-remove", function(event) {
 	});
 	
 });
-
-
 function checkImageType(fileName) {
 	var pattern = /jpg$|gif$|png$|jpeg$/i;
 	return fileName.match(pattern);
 	
 }
-
 function getOriginalName(fileName) {
 	if(checkImageType(fileName)){
 		return;
@@ -124,7 +119,6 @@ function getOriginalName(fileName) {
 	return fileName.substr(idx);
 	
 }
-
 function getImageLink(fileName) {
 	
 	if(!checkImageType(fileName)){
@@ -138,9 +132,6 @@ function getImageLink(fileName) {
 		return front + end;
 	
 }
-
-
-
 </script>
 
 

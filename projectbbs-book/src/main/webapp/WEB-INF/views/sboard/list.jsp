@@ -103,9 +103,7 @@
 
 <script>
 	$(document).ready(
-
 			function(e) {
-
 				$('#sbtn').on(
 						"click",
 						function() {
@@ -120,15 +118,11 @@
 							console.log("search check..........")
 							console.log("${pageMaker.makeQuery(1)}")
 						});
-
 				$('#rbtn').on("click", function() {
-
 					self.location = "/sboard/register";
 					console.log("click event....");
 				});
-
 			});
-
 	var result = '${msg}';
 	if (result == "success") {
 		alert("글 작성이 완료되었습니다.");

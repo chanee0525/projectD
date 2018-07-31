@@ -35,23 +35,20 @@
 				style="width: 250px; display: inline;">
 
 		</div>
-		
-
 
 		<br>
 
+
 		<div class="loginfooter">
 			<div class="loginfooterdiv">
-				<input type="checkbox" id="checkbox" name="useCookie"> <label for="checkbox">REMEMBER ME</label>
+				<input type="checkbox" id="checkbox" name="useCookie"> <label
+					for="checkbox">REMEMBER ME</label>
 
 			</div>
 					<div class="btns">
-					<a class="button" href="/user/join">JOIN</a>
 					<button type="submit" class="login" id="login">LOGIN</button>
 				</div>
 		</div>
 	</div>
 </form>
 <%@ include file="../includes/footer.jsp"%>
-
-

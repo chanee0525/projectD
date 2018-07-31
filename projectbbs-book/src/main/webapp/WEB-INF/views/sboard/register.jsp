@@ -16,21 +16,12 @@
 	display: inline-block;
 	
 }
-
-
 li{
-
 display : inline-block;
-
 }
-
 .box-footer{
 width: 100%;
-
 }
-
-
-
 </style>
 
 
@@ -102,22 +93,17 @@ width: 100%;
 <span class="mailbox-attachments-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
 <div class="filenamediv">
 <a href="{{getLink}}" class="getLink">{{fileName}}</a>
-<a class="btn btn-default btn-xs pull-right delbtn" id="filedelbtn"><i class="fa fa-fw fa-remove test" id="removebtn" data-fileName="{{fileLink}}"></i></a>
+<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn" id="filedelbtn"><i class="fa fa-fw fa-remove id="removebtn"></i></a>
 </div>
 </li>
 </script>
-
-
-
 <script>
 var template = Handlebars.compile($("#template").html());
-
 $(".fileDrop").on("dragenter dragover", function(event) {
 	 event.preventDefault();
 	 /* console.log(event); */
 	
 });
-
 $(".fileDrop").on("drop", function(event) {
 	event.preventDefault();
 	
@@ -165,24 +151,23 @@ $(".fileDrop").on("drop", function(event) {
         that.append(str);
         console.log(str);
         that.get(0).submit();
-
 });
     
-
-
-     $(".uploadedList").on("click", ".test", function (event) {
-  
+     $("#uploadedList").on("click", ".btn btn-default btn-xs pull-right delbtn", function (event) {
+    	
+    	event.preventDefault();
+    	event.propagation();
     	console.log("click.................."+event);
+    	
+    	
+    	
     	var that = $(this);
-    	console.dir(that);
-    	console.log(that.attr("data-fileName"));	
     	
     	$.ajax ({
     		
-    		url:"/deleteFile",
-    		type: "POST",
-    		/* data: {"fileName":that.attr("data-src")}, */
-    		data: {"fileName":$(this).attr("data-src")},
+    		url:"deleteFile",
+    		type: "post",
+    		data: {fileName:$(this).attr("href")},
     		dataType:"text",
     		success: function(result) {
     			if(result == 'deleted'){
@@ -193,19 +178,10 @@ $(".fileDrop").on("drop", function(event) {
     		
     	}); 
     	
- 
-    	
-    	
-    	
-    	
-    	
-    	
+     
      });
   
    
 </script>
-
-
 <script type="text/javascript" src="/resources/js/upload.js"></script>
 <%@ include file="../includes/footer.jsp"%>
-

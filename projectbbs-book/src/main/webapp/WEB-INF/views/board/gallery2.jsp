@@ -144,8 +144,8 @@ body { .
 <style>
 #bg {
 	width: 100%;
-	/*height: 600px;*/
-	/*height: 300px;*/
+	height: 600px;
+	height: 300px;
 	background-color: rgba(0, 0, 0, 0.5);
 	position: absolute;
 	top: 0;

@@ -86,8 +86,7 @@ list-style-type: none;
 
 
 
-	
-	<h2>HELLO, STRANGER<br>
+<h2>HELLO, STRANGER<br>
 	> LETTER NO.${boardVO.bno}</h2>
 
 </form>
@@ -206,7 +205,7 @@ list-style-type: none;
 				
 				<div class=box-body">
 				<div>
-				<div><a href="/user/login">LOGIN PLEASE</a></div>
+				<div><a href="javascript:goLogin();">LOGIN PLEASE</a></div>
 				</div>
 				
 				</div>
@@ -233,13 +232,11 @@ list-style-type: none;
 							<div class="form-group">
 								<label>REPLY</label> <input class="form-control" id="replytext"
 									name='relply' value='new reply' style="width: 100%">
-									</div>
 							</div>
 							<div class="form-group">
 								<label>REPLYER</label> <input class="form-control" id="replyer"
-									name='relplyer' value='${login.uid } readOnly="readOnly">
+									name='relplyer' value='relplyer' readOnly="readOnly">
 							</div>
-						</div>
 						</div>
 					</div>
 				</div>
@@ -256,11 +253,29 @@ list-style-type: none;
 		</div>
 	</div>
 </div>
-
+<!-- 			<div class="row" style="width: 100%">
+				<div class="replyMod" style="width: 100%">
+					<div class="box box-success">
+						<div class="box-header">
+							<h3 class="box-title">MODIFY REPLY</h3>
+						</div>
+						<div class="box-body" data-rno>
+							<label for="ModReplyText">MODIFY</label> <input
+								class="form-control" type="text" placeholder="reply Text"
+								id="newReplyText">
+						</div>
+						<div align="right" class="box-footer">
+							<button type="submit" class="btn btn-primary" id="replyModBtn">Mod
+								REPLY</button>
+							<button type="submit" class="btn btn-primary" id="replyDelBtn">Del
+								REPLY</button>
+							<button type="submit" class="btn btn-primary" id="replyDelBtn">Close</button>
+						</div>
+						</div>
+	
+	 -->
 <script type="text/javascript">
 	$(document).ready(function() {
-	
-	
 		var formObj = $("form[role='form']");
 		console.log(formObj);
 		$("input[type='submit']").on("click", function(e) {

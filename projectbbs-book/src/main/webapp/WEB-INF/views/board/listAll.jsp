@@ -40,6 +40,8 @@
 				</tbody>
 			</table>
 		</div>
+		</section>
+		</section>
 		<script>
 			var result = '${msg}';
 			if (result == "success") {
